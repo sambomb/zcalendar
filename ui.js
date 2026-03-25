@@ -1,8 +1,10 @@
 let use24h=true
 let currentFilter="all"
 
-function toggleTimeFormat(){
-use24h=!use24h
+const ICONS={
+white:"https://cdn.jsdelivr.net/gh/sambomb/zcalendar@main/white.png",
+red:"https://cdn.jsdelivr.net/gh/sambomb/zcalendar@main/red.png",
+gold:"https://cdn.jsdelivr.net/gh/sambomb/zcalendar@main/gold.png"
 }
 
 // FILTER
@@ -18,20 +20,14 @@ c.style.opacity=c.innerText.toLowerCase().includes(type.toLowerCase())?1:0.2
 })
 }
 
-// TABLE
+// BUILD TABLE
 function buildTable(){
-
-let header=document.getElementById("tableHeader")
-header.innerHTML="<th>Time</th>"
-
-for(let i=0;i<7;i++){
-header.innerHTML+=`<th>${i}</th>`
-}
 
 let body=document.getElementById("tableBody")
 body.innerHTML=""
 
 for(let r=0;r<6;r++){
+
 let tr=document.createElement("tr")
 tr.innerHTML=`<td>${APOC_TIMES[r]}:00</td>`
 
@@ -40,30 +36,9 @@ let td=document.createElement("td")
 td.className="timeCell"
 tr.appendChild(td)
 }
+
 body.appendChild(tr)
 }
-}
-
-// MOBILE
-function renderMobile(data){
-
-let container=document.getElementById("mobileCards")
-container.innerHTML=""
-
-data.forEach(d=>{
-let div=document.createElement("div")
-div.className="card"
-
-if(d.active)div.classList.add("active")
-if(d.red)div.classList.add("red")
-
-div.innerHTML=`
-<div class="time">${d.time}</div>
-<div class="event">${d.event}</div>
-`
-
-container.appendChild(div)
-})
 }
 
 // UPDATE
@@ -75,44 +50,57 @@ let slot=getCurrentSlot()
 let cd=getCountdown()
 
 let cells=document.querySelectorAll(".timeCell")
-let mobileData=[]
 let index=0
+let alert=false
 
 for(let r=0;r<6;r++){
 for(let c=0;c<7;c++){
 
+let hour=APOC_TIMES[r]
+
+// ICON RULES
+let icon="white"
+if(c===0)icon="red"
+else if(c===1)icon="gold"
+else if(c===3 && hour>=16)icon="red"
+else if(c===4)icon="red"
+else if(c===5)icon="gold"
+else if(c===6 && hour>=16)icon="red"
+
+let base=new Date()
+base.setHours(hour,0,0,0)
+
 let raw=EVENTS[c][r]
-let event=await translateEvent(raw)
+let event=(T.events && T.events[raw])||raw
 
-cells[index].innerText=event
+cells[index].innerHTML=`
+<img src="${ICONS[icon]}" style="width:16px"><br>
+${formatTime(base,use24h)}<br>
+${event}
+`
 
-let active=(c===slot.day && r===slot.index)
+// highlight column
+if(c===slot.day)cells[index].classList.add("currentColumn")
 
-if(active)cells[index].classList.add("activeEvent")
+// highlight current
+if(c===slot.day && r===slot.index){
+cells[index].classList.add("activeEvent")
+if(icon==="red")alert=true
+}
 
-mobileData.push({
-time: formatTime(new Date().setHours(APOC_TIMES[r],0,0,0),use24h),
-event,
-active,
-red:(c===0||c===4)
-})
+if(icon==="red")cells[index].classList.add("redEvent")
 
 index++
 }}
 
-// MOBILE RENDER
-renderMobile(mobileData)
-
-// HEADER
-let currentEvent=await translateEvent(EVENTS[slot.day][slot.index])
-
 document.getElementById("currentEventBar").innerText=
-`${T.current||"Current"}: ${currentEvent}`
+`${T.current||"Current"}: ${(T.events && T.events[EVENTS[slot.day][slot.index]])||EVENTS[slot.day][slot.index]}`
 
 document.getElementById("timeInfo").innerText=
 `Local ${formatTime(now,use24h)} | Apoc ${formatTime(apoc,use24h)} | ${cd.h}h ${cd.m}m`
 
-filterEvents(currentFilter)
+document.getElementById("alertBar").innerText=
+alert ? (T.alert||"Do not claim radar missions") : ""
 }
 
 // INIT
@@ -120,9 +108,8 @@ async function init(){
 
 await loadLang(LANG)
 
-buildLangMenu()
+buildLangSelect()
 buildTable()
-applyUI()
 
 setInterval(updateCalendar,1000)
 updateCalendar()
