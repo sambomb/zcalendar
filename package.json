@@ -2,9 +2,9 @@
   "name": "zcalendar",
   "version": "1.0.0",
   "scripts": {
-    "dev": "Samir Sardinha",
-    "build": "1.0",
-    "preview": "1.0"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "vite": "^5.0.0"
