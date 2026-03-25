@@ -39,7 +39,6 @@
 <button onclick="filterEvents('Science')" id="btnScience">Science</button>
 </div>
 
-<!-- DESKTOP -->
 <table id="apocTable">
 <thead>
 <tr>
@@ -56,21 +55,17 @@
 <tbody id="tableBody"></tbody>
 </table>
 
-<!-- MOBILE -->
 <div id="mobileDay"></div>
 
-<!-- LOAD ORDER -->
+<!-- ORDER IS CRITICAL -->
 <script src="calctime.js"></script>
 <script src="events.js"></script>
 <script src="translate.js"></script>
 <script src="ui.js"></script>
 <script src="mobile.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", ()=>{
-hookMobile()
-})
-</script>
+<!-- ONLY ENTRY POINT -->
+<script src="app.js"></script>
 
 </body>
 </html>
