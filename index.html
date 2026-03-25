@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="styles.css">
+
+<style>
+@media (max-width:768px){
+#apocTable{display:none}
+#mobileDay{display:block;padding:10px}
+}
+</style>
+
 </head>
 
 <body>
@@ -17,29 +26,51 @@
 
   <div class="controls">
     <button onclick="toggleTimeFormat()" id="timeBtn">24H</button>
-
-    <div id="langWrapper">
-      <button id="langBtn">🌐</button>
-      <div id="langMenu"></div>
-    </div>
+    <select id="langSelect"></select>
   </div>
 </div>
 
-<div id="progressContainer"><div id="progressBar"></div></div>
+<div id="eventFilters">
+<button onclick="filterEvents('all')" id="btnAll">All</button>
+<button onclick="filterEvents('Army')" id="btnArmy">Army</button>
+<button onclick="filterEvents('Hero')" id="btnHero">Hero</button>
+<button onclick="filterEvents('Shelter')" id="btnShelter">Shelter</button>
+<button onclick="filterEvents('Vehicle')" id="btnVehicle">Vehicle</button>
+<button onclick="filterEvents('Science')" id="btnScience">Science</button>
+</div>
 
-<div id="eventFilters"></div>
-
+<!-- DESKTOP -->
 <table id="apocTable">
-<thead><tr id="tableHeader"></tr></thead>
+<thead>
+<tr>
+<th>Time</th>
+<th>Sun</th>
+<th>Mon</th>
+<th>Tue</th>
+<th>Wed</th>
+<th>Thu</th>
+<th>Fri</th>
+<th>Sat</th>
+</tr>
+</thead>
 <tbody id="tableBody"></tbody>
 </table>
 
-<div id="mobileCards"></div>
+<!-- MOBILE -->
+<div id="mobileDay"></div>
 
+<!-- LOAD ORDER -->
 <script src="calctime.js"></script>
 <script src="events.js"></script>
 <script src="translate.js"></script>
 <script src="ui.js"></script>
+<script src="mobile.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+hookMobile()
+})
+</script>
 
 </body>
 </html>
