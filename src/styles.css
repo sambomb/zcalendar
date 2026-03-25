@@ -3,6 +3,7 @@ body{
   color:#fff;
   font-family:Arial;
   margin:0;
+  text-align:center;
 }
 
 #topBar{
@@ -11,17 +12,39 @@ body{
   padding:10px;
 }
 
+.controls{
+  display:flex;
+  gap:10px;
+}
+
+#alertBar{
+  text-align:center;
+  font-weight:bold;
+  margin:10px;
+}
+
+.alert.active{
+  color:#ff3b3b;
+}
+
 #eventFilters{
   display:flex;
-  gap:6px;
-  padding:10px;
+  justify-content:center;
+  gap:8px;
+  margin:10px;
 }
 
 #eventFilters button{
   background:#111;
   color:#fff;
   border:1px solid #333;
-  padding:6px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+#eventFilters button.selected{
+  background:#00ffcc;
+  color:#000;
 }
 
 table{
@@ -29,12 +52,39 @@ table{
   border-collapse:collapse;
 }
 
-td,th{
+th,td{
   border:1px solid #222;
   padding:8px;
-  text-align:center;
 }
 
-.cell-time{font-size:12px;color:#aaa}
-.radar-icon{width:16px}
-.day-title{font-size:11px;color:#00ffcc}
+.day-title{
+  font-size:11px;
+  color:#00ffcc;
+}
+
+.today{
+  background:#0f2a2a;
+}
+
+.cell.active{
+  background:#003f3f;
+  border:2px solid #00ffcc;
+}
+
+.cell.dim{
+  opacity:0.2;
+}
+
+.cell-time{
+  font-size:11px;
+  color:#aaa;
+}
+
+.radar-icon{
+  width:14px;
+  margin:4px 0;
+}
+
+#timeInfo{
+  margin:15px;
+}

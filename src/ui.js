@@ -5,18 +5,19 @@ import { T } from "./translate.js"
 let currentFilter = "all"
 
 export function initUI(){
-
   buildTable()
   fillCells()
   applyTranslations()
   hookFilters()
 
-  document.getElementById("timeBtn").onclick = toggleFormat
+  setInterval(updateAll, 1000)
+}
 
-  setInterval(()=>{
-    updateCurrent()
-    updateAlert()
-  },1000)
+function updateAll(){
+  updateCurrent()
+  updateAlert()
+  highlightNow()
+  updateNextEvent()
 }
 
 function buildTable(){
@@ -27,9 +28,14 @@ function buildTable(){
   head.innerHTML = `
     <th>${T.time}</th>
     ${T.days.map((d,i)=>`
-      <th>${d}<br><span class="day-title">${T.dayTitles[DAY_KEYS[i]]}</span></th>
+      <th class="day-col" data-day="${i}">
+        ${d}
+        <div class="day-title">${T.dayTitles[DAY_KEYS[i]]}</div>
+      </th>
     `).join("")}
   `
+
+  body.innerHTML = ""
 
   for(let r=0;r<6;r++){
     let tr = `<tr><td>${formatHour(r*4)}</td>`
@@ -49,7 +55,6 @@ function fillCells(){
 
     const day = +cell.dataset.day
     const hour = +cell.dataset.hour
-
     const ev = EVENTS[hour/4][day]
 
     cell.innerHTML = `
@@ -71,19 +76,51 @@ function getIcon(day,hour){
   return ICONS.white
 }
 
+function highlightNow(){
+
+  const { h } = getApoc()
+  const day = new Date().getDay()
+  const row = Math.floor(h/4)
+
+  document.querySelectorAll(".cell").forEach(c=>{
+    c.classList.remove("active")
+  })
+
+  document.querySelectorAll(".day-col").forEach(c=>{
+    c.classList.remove("today")
+  })
+
+  const cell = document.querySelector(`.cell[data-day="${day}"][data-hour="${row*4}"]`)
+  const col = document.querySelector(`.day-col[data-day="${day}"]`)
+
+  if(cell) cell.classList.add("active")
+  if(col) col.classList.add("today")
+}
+
 function updateCurrent(){
 
-  const { h, m } = getApoc()
+  const { h } = getApoc()
+  const day = new Date().getDay()
   const row = Math.floor(h/4)
-  const col = new Date().getDay()
 
-  const ev = EVENTS[row][col]
+  const ev = EVENTS[row][day]
 
   document.getElementById("currentEventBar").innerText =
     `${T.current}: ${T.events[ev]}`
+}
+
+function updateNextEvent(){
+
+  const { h, m } = getApoc()
+  const nextHour = Math.ceil((h+0.01)/4)*4 % 24
+
+  let diff = (nextHour - h + 24) % 24
+  let mins = diff*60 - m
+
+  if(mins < 0) mins += 1440
 
   document.getElementById("timeInfo").innerText =
-    `Local ${new Date().toLocaleTimeString()} | Apoc ${formatHour(h)}:${String(m).padStart(2,"0")}`
+    `Local ${new Date().toLocaleTimeString()} | Apoc ${formatHour(h)}:${String(m).padStart(2,"0")} | Next ${mins}m`
 }
 
 function updateAlert(){
@@ -93,8 +130,10 @@ function updateAlert(){
 
   const isRed = getIcon(d,h) === ICONS.red
 
-  document.getElementById("alertBar").innerText =
-    isRed ? T.alert : ""
+  const el = document.getElementById("alertBar")
+
+  el.innerText = isRed ? T.alert : ""
+  el.className = isRed ? "alert active" : "alert"
 }
 
 function hookFilters(){
@@ -102,6 +141,10 @@ function hookFilters(){
   document.querySelectorAll("#eventFilters button").forEach(btn=>{
     btn.onclick = ()=>{
       currentFilter = btn.dataset.filter
+
+      document.querySelectorAll("#eventFilters button").forEach(b=>b.classList.remove("selected"))
+      btn.classList.add("selected")
+
       applyFilter()
     }
   })
@@ -110,12 +153,19 @@ function hookFilters(){
 function applyFilter(){
 
   document.querySelectorAll(".cell").forEach(cell=>{
+
     const text = cell.innerText.toLowerCase()
 
-    cell.style.display =
-      currentFilter==="all" || text.includes(currentFilter)
-      ? ""
-      : "none"
+    if(currentFilter==="all"){
+      cell.classList.remove("dim")
+      return
+    }
+
+    if(text.includes(currentFilter)){
+      cell.classList.remove("dim")
+    }else{
+      cell.classList.add("dim")
+    }
   })
 }
 
@@ -131,20 +181,6 @@ function applyTranslations(){
   document.querySelector('[data-filter="science"]').textContent = f.science
 }
 
-function toggleFormat(){
-  const btn = document.getElementById("timeBtn")
-  btn.innerText = btn.innerText === "24H" ? "AM/PM" : "24H"
-}
-
 function formatHour(h){
-
-  const mode = document.getElementById("timeBtn").innerText
-
-  if(mode==="AM/PM"){
-    const suffix = h>=12?"PM":"AM"
-    const hour = h%12||12
-    return `${hour}:00 ${suffix}`
-  }
-
   return `${String(h).padStart(2,"0")}:00`
 }
