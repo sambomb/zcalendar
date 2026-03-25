@@ -1,1 +1,38 @@
-export default {"time": "時間", "current": "現在のイベント", "alert": "レーダーミッションを受け取らないでください", "all": "すべて", "army": "軍隊", "hero": "ヒーロー", "shelter": "シェルター", "vehicle": "車両", "science": "科学", "days": ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"], "events": {"Mod Vehicle Boost": "車両強化", "Shelter Upgrade": "シェルター強化", "Army Expansion": "軍拡", "Age of Science": "科学の時代", "Hero Initiative": "ヒーロー計画"}}
+export default {
+  "time": "Time",
+  "current": "Current Event",
+  "alert": "Do not claim radar missions",
+  "filters": {
+    "all": "Todos",
+    "army": "Army",
+    "hero": "Hero",
+    "shelter": "Shelter",
+    "vehicle": "Vehicle",
+    "science": "Science"
+  },
+  "days": [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ],
+  "dayTitles": {
+    "peace": "Peace Time",
+    "vehicle": "Mod Vehicle Boost",
+    "shelter": "Shelter Upgrade",
+    "science": "Age of Science",
+    "hero": "Hero Initiative",
+    "growth": "Holistic Growth",
+    "enemy": "Enemy Buster"
+  },
+  "events": {
+    "Mod Vehicle Boost": "Mod Vehicle Boost",
+    "Shelter Upgrade": "Shelter Upgrade",
+    "Age of Science": "Age of Science",
+    "Hero Initiative": "Hero Initiative",
+    "Army Expansion": "Army Expansion"
+  }
+}

@@ -1,1 +1,38 @@
-export default {"time": "Uhrzeit", "current": "Aktuelles Ereignis", "alert": "Radar-Missionen nicht einlösen", "all": "Alle", "army": "Armee", "hero": "Helden", "shelter": "Unterschlupf", "vehicle": "Fahrzeuge", "science": "Forschung", "days": ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"], "events": {"Mod Vehicle Boost": "Fahrzeugverbesserung", "Shelter Upgrade": "Unterschlupf-Upgrade", "Army Expansion": "Armee-Erweiterung", "Age of Science": "Zeitalter der Forschung", "Hero Initiative": "Heldeninitiative"}}
+export default {
+  "time": "Time",
+  "current": "Current Event",
+  "alert": "Do not claim radar missions",
+  "filters": {
+    "all": "Todos",
+    "army": "Army",
+    "hero": "Hero",
+    "shelter": "Shelter",
+    "vehicle": "Vehicle",
+    "science": "Science"
+  },
+  "days": [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ],
+  "dayTitles": {
+    "peace": "Peace Time",
+    "vehicle": "Mod Vehicle Boost",
+    "shelter": "Shelter Upgrade",
+    "science": "Age of Science",
+    "hero": "Hero Initiative",
+    "growth": "Holistic Growth",
+    "enemy": "Enemy Buster"
+  },
+  "events": {
+    "Mod Vehicle Boost": "Mod Vehicle Boost",
+    "Shelter Upgrade": "Shelter Upgrade",
+    "Age of Science": "Age of Science",
+    "Hero Initiative": "Hero Initiative",
+    "Army Expansion": "Army Expansion"
+  }
+}

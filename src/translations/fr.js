@@ -1,1 +1,38 @@
-export default {"time": "Heure", "current": "Événement en cours", "alert": "Ne pas récupérer les missions radar", "all": "Tous", "army": "Armée", "hero": "Héros", "shelter": "Abri", "vehicle": "Véhicules", "science": "Recherche", "days": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"], "events": {"Mod Vehicle Boost": "Amélioration des véhicules", "Shelter Upgrade": "Amélioration de l’abri", "Army Expansion": "Expansion de l’armée", "Age of Science": "Ère de la science", "Hero Initiative": "Initiative des héros"}}
+export default {
+  "time": "Time",
+  "current": "Current Event",
+  "alert": "Do not claim radar missions",
+  "filters": {
+    "all": "Todos",
+    "army": "Army",
+    "hero": "Hero",
+    "shelter": "Shelter",
+    "vehicle": "Vehicle",
+    "science": "Science"
+  },
+  "days": [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ],
+  "dayTitles": {
+    "peace": "Peace Time",
+    "vehicle": "Mod Vehicle Boost",
+    "shelter": "Shelter Upgrade",
+    "science": "Age of Science",
+    "hero": "Hero Initiative",
+    "growth": "Holistic Growth",
+    "enemy": "Enemy Buster"
+  },
+  "events": {
+    "Mod Vehicle Boost": "Mod Vehicle Boost",
+    "Shelter Upgrade": "Shelter Upgrade",
+    "Age of Science": "Age of Science",
+    "Hero Initiative": "Hero Initiative",
+    "Army Expansion": "Army Expansion"
+  }
+}

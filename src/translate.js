@@ -1,35 +1,31 @@
 
-export const LANGS = ["en","pt-br","pt-pt","es","it","ru","ko","ja","hi","zh","ar","bn","ur","id","de","sw","mr","fr"];
-export let LANG = localStorage.getItem("lang") || detectLang();
-export let T = {};
+export let T={}
 
-function detectLang(){
-  let l = navigator.language.toLowerCase();
-  if(l.includes("-")) l = l.split("-")[0];
-  return LANGS.includes(l) ? l : "en";
+const LANGS=["en","pt-BR","es","fr","de","it","ru","ja","ko","zh","ar","hi","id","tr","pl"]
+
+export async function loadLang(l){
+ try{
+  T=(await import(`./translations/${l}.js`)).default
+ }catch{
+  T=(await import(`./translations/en.js`)).default
+ }
+ localStorage.setItem("lang",l)
 }
 
-export async function loadLang(lang){
-  try{
-    const mod = await import(`./translations/${lang}.js`);
-    T = mod.default || {};
-  }catch{ T = {}; }
+export function detectLang(){
+ return localStorage.getItem("lang")||navigator.language||"en"
 }
 
 export function buildLangSelect(){
-  const select = document.getElementById("langSelect");
-  if(!select) return;
-  select.innerHTML = "";
-  LANGS.forEach(l=>{
-    const opt = document.createElement("option");
-    opt.value = l; opt.text = l.toUpperCase();
-    if(l===LANG) opt.selected = true;
-    select.appendChild(opt);
-  });
-  select.onchange = async ()=>{
-    LANG = select.value;
-    localStorage.setItem("lang", LANG);
-    await loadLang(LANG);
-    location.reload();
-  };
+ const s=document.getElementById("langSelect")
+ s.innerHTML=LANGS.map(l=>`<option value="${l}">${l}</option>`).join("")
+ s.value=detectLang()
+ s.onchange=async()=>{
+  await loadLang(s.value)
+  location.reload()
+ }
+}
+
+export function t(path){
+ return path.split(".").reduce((o,k)=>o?.[k],T)
 }
