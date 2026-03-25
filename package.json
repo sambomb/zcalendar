@@ -1,0 +1,12 @@
+{
+  "name": "zcalendar",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "Samir Sardinha",
+    "build": "1.0",
+    "preview": "1.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
