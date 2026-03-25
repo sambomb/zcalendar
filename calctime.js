@@ -1,8 +1,8 @@
 const APOC_TIMES=[0,4,8,12,16,20]
-const APOC_OFFSET=-120
+const OFFSET=-120
 
 function getApocNow(){
-  return new Date(Date.now()+APOC_OFFSET*60000)
+  return new Date(Date.now()+OFFSET*60000)
 }
 
 function getCurrentSlot(){
@@ -34,7 +34,7 @@ function getCountdown(){
 }
 
 function formatTime(d,use24h){
-  return d.toLocaleTimeString([],{
+  return new Date(d).toLocaleTimeString([],{
     hour:'2-digit',
     minute:'2-digit',
     hour12:!use24h
