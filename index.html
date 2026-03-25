@@ -78,7 +78,7 @@ body{margin:0;font-family:Arial;background:#0b0b0b;color:white}
 
 <script>
 
-// CONFIG
+// ---------- CONFIG ----------
 const apocalypseOffsetMinutes=-120
 const apocTimes=[0,4,8,12,16,20]
 
@@ -88,7 +88,7 @@ red:"https://cdn.jsdelivr.net/gh/sambomb/zcalendar@main/red.png",
 gold:"https://cdn.jsdelivr.net/gh/sambomb/zcalendar@main/gold.png"
 }
 
-// EVENTS
+// ---------- EVENTS ----------
 const events=[
 ["Mod Vehicle Boost","Shelter Upgrade","Army Expansion","Age of Science","Hero Initiative","Army Expansion"],
 ["Shelter Upgrade","Age of Science","Mod Vehicle Boost","Hero Initiative","Army Expansion","Mod Vehicle Boost"],
@@ -99,15 +99,16 @@ const events=[
 ["Age of Science","Mod Vehicle Boost","Hero Initiative","Shelter Upgrade","Army Expansion","Hero Initiative"]
 ]
 
-// LANGUAGES + FLAGS
+// ---------- LANGUAGE SYSTEM ----------
 const LANG_LIST={
-en:"🇺🇸 EN",
-pt:"🇧🇷 PT",
-es:"🇪🇸 ES",
-it:"🇮🇹 IT",
-ru:"🇷🇺 RU",
-ko:"🇰🇷 KO",
-ja:"🇯🇵 JA"
+en:"🇺🇸 English",
+pt:"🇧🇷 Português",
+es:"🇪🇸 Español",
+it:"🇮🇹 Italiano",
+ru:"🇷🇺 Русский",
+ko:"🇰🇷 한국어",
+ja:"🇯🇵 日本語",
+hi:"🇮🇳 हिन्दी"
 }
 
 const TEXTS={
@@ -117,27 +118,28 @@ es:{time:"Hora",current:"Evento Actual",all:"Todos",army:"Ejército",hero:"Héro
 it:{time:"Tempo",current:"Evento Attuale",all:"Tutti",army:"Esercito",hero:"Eroe",shelter:"Rifugio",vehicle:"Veicoli",science:"Scienza"},
 ru:{time:"Время",current:"Текущее событие",all:"Все",army:"Армия",hero:"Герой",shelter:"Убежище",vehicle:"Техника",science:"Наука"},
 ko:{time:"시간",current:"현재 이벤트",all:"전체",army:"군대",hero:"영웅",shelter:"쉘터",vehicle:"차량",science:"과학"},
-ja:{time:"時間",current:"現在のイベント",all:"すべて",army:"軍隊",hero:"ヒーロー",shelter:"シェルター",vehicle:"車両",science:"科学"}
+ja:{time:"時間",current:"現在のイベント",all:"すべて",army:"軍隊",hero:"ヒーロー",shelter:"シェルター",vehicle:"車両",science:"科学"},
+hi:{time:"समय",current:"वर्तमान इवेंट",all:"सभी",army:"सेना",hero:"हीरो",shelter:"शेल्टर",vehicle:"वाहन",science:"विज्ञान"}
 }
 
-// EVENT TRANSLATION
 const EVENT_TRANSLATIONS={
-pt:{"Mod Vehicle Boost":"Veículos","Shelter Upgrade":"Abrigo","Army Expansion":"Exército","Age of Science":"Ciência","Hero Initiative":"Heróis"},
-es:{"Mod Vehicle Boost":"Vehículos","Shelter Upgrade":"Refugio","Army Expansion":"Ejército","Age of Science":"Ciencia","Hero Initiative":"Héroes"},
-it:{"Mod Vehicle Boost":"Veicoli","Shelter Upgrade":"Rifugio","Army Expansion":"Esercito","Age of Science":"Scienza","Hero Initiative":"Eroi"},
-ru:{"Mod Vehicle Boost":"Техника","Shelter Upgrade":"Убежище","Army Expansion":"Армия","Age of Science":"Наука","Hero Initiative":"Герои"},
-ko:{"Mod Vehicle Boost":"차량","Shelter Upgrade":"쉘터","Army Expansion":"군대","Age of Science":"과학","Hero Initiative":"영웅"},
-ja:{"Mod Vehicle Boost":"車両","Shelter Upgrade":"シェルター","Army Expansion":"軍隊","Age of Science":"科学","Hero Initiative":"ヒーロー"}
+pt:{"Mod Vehicle Boost":"Melhoria de Veículos","Shelter Upgrade":"Melhoria do Abrigo","Army Expansion":"Expansão do Exército","Age of Science":"Era da Ciência","Hero Initiative":"Iniciativa dos Heróis"},
+es:{"Mod Vehicle Boost":"Mejora de Vehículos","Shelter Upgrade":"Mejora del Refugio","Army Expansion":"Expansión del Ejército","Age of Science":"Era de la Ciencia","Hero Initiative":"Iniciativa de Héroes"},
+it:{"Mod Vehicle Boost":"Potenziamento Veicoli","Shelter Upgrade":"Miglioramento del Rifugio","Army Expansion":"Espansione dell’Esercito","Age of Science":"Era della Scienza","Hero Initiative":"Iniziativa degli Eroi"},
+ru:{"Mod Vehicle Boost":"Улучшение техники","Shelter Upgrade":"Улучшение убежища","Army Expansion":"Расширение армии","Age of Science":"Эра науки","Hero Initiative":"Инициатива героев"},
+ko:{"Mod Vehicle Boost":"차량 강화","Shelter Upgrade":"쉘터 업그레이드","Army Expansion":"군대 확장","Age of Science":"과학의 시대","Hero Initiative":"영웅 계획"},
+ja:{"Mod Vehicle Boost":"車両強化","Shelter Upgrade":"シェルター強化","Army Expansion":"軍拡","Age of Science":"科学の時代","Hero Initiative":"ヒーロー計画"},
+hi:{"Mod Vehicle Boost":"वाहन सुधार","Shelter Upgrade":"शेल्टर उन्नयन","Army Expansion":"सेना विस्तार","Age of Science":"विज्ञान का युग","Hero Initiative":"हीरो पहल"}
 }
 
-// DETECT
+// Detect full locale
 function detectLang(){
-let l=navigator.language.toLowerCase()
-for(let k in LANG_LIST){if(l.startsWith(k))return k}
-return "en"
+let lang = navigator.language.toLowerCase()
+if(lang.includes("-")) lang = lang.split("-")[0]
+return LANG_LIST[lang] ? lang : "en"
 }
 
-let LANG=localStorage.getItem("lang")||detectLang()
+let LANG = localStorage.getItem("lang") || detectLang()
 
 function T(){return TEXTS[LANG]||TEXTS.en}
 
@@ -145,7 +147,19 @@ function translateEvent(e){
 return (EVENT_TRANSLATIONS[LANG]||{})[e]||e
 }
 
-// LANG MENU
+// ---------- UI ----------
+function applyUI(){
+let t=T()
+document.getElementById("timeHeader").innerText=t.time
+document.getElementById("btnAll").innerText=t.all
+document.getElementById("btnArmy").innerText=t.army
+document.getElementById("btnHero").innerText=t.hero
+document.getElementById("btnShelter").innerText=t.shelter
+document.getElementById("btnVehicle").innerText=t.vehicle
+document.getElementById("btnScience").innerText=t.science
+document.getElementById("timeFormatBtn").innerText=use24h?"24H":"AM/PM"
+}
+
 function buildLangMenu(){
 let menu=document.getElementById("langMenu")
 menu.innerHTML=""
@@ -163,8 +177,9 @@ let m=document.getElementById("langMenu")
 m.style.display=m.style.display==="block"?"none":"block"
 }
 
-// TIME
-let use24h=JSON.parse(localStorage.getItem("use24h")||true)
+// ---------- TIME ----------
+let use24h = JSON.parse(localStorage.getItem("use24h") || true)
+
 function toggleTimeFormat(){
 use24h=!use24h
 localStorage.setItem("use24h",use24h)
@@ -172,20 +187,7 @@ applyUI()
 updateCalendar()
 }
 
-// UI
-function applyUI(){
-let t=T()
-document.getElementById("timeHeader").innerText=t.time
-document.getElementById("btnAll").innerText=t.all
-document.getElementById("btnArmy").innerText=t.army
-document.getElementById("btnHero").innerText=t.hero
-document.getElementById("btnShelter").innerText=t.shelter
-document.getElementById("btnVehicle").innerText=t.vehicle
-document.getElementById("btnScience").innerText=t.science
-document.getElementById("timeFormatBtn").innerText=use24h?"24H":"AM/PM"
-}
-
-// TABLE
+// ---------- TABLE ----------
 function buildTable(){
 let b=document.getElementById("tableBody")
 for(let r=0;r<b.rows.length;r++){
@@ -195,7 +197,7 @@ td.className="timeCell"
 b.rows[r].appendChild(td)
 }}}
 
-// UPDATE
+// ---------- UPDATE ----------
 function updateCalendar(){
 
 let now=new Date()
@@ -246,7 +248,7 @@ index++
 }}
 }
 
-// INIT
+// ---------- INIT ----------
 buildTable()
 buildLangMenu()
 applyUI()
