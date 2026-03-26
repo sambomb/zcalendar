@@ -105,9 +105,9 @@ function parseServerOffset(offset){
 
 function getApocNow(){
   const now = new Date()
-  const utc = now.getTime() + now.getTimezoneOffset() * 60000
   const offsetMs = parseServerOffset(SERVER_OFFSET)
-  return new Date(utc + offsetMs)
+  // now.getTime() already is UTC-based epoch milliseconds
+  return new Date(now.getTime() + offsetMs)
 }
 
 function getApocDayStart(){
@@ -163,42 +163,43 @@ function buildTable(){
 // 📅 CELLS (APOC BASED)
 //
 function fillCells(){
-
-  const now = new Date();
-  const nowDay = now.getDay();
-  const nowHour = now.getHours();
-  const nowMin = now.getMinutes();
-  const nowSec = now.getSeconds();
+  const nowApoc = getApocNow()
+  const offsetMs = parseServerOffset(SERVER_OFFSET)
+  const nowApocDay = nowApoc.getUTCDay()
+  const currentSlotStart = Math.floor(nowApoc.getUTCHours()/4)*4
 
   document.querySelectorAll(".cell").forEach(cell => {
-    const day = +cell.dataset.day;
-    const hour = +cell.dataset.hour;
-    const ev = EVENTS[hour/4][day];
-    const eventType = getEventType(ev);
+    const day = +cell.dataset.day
+    const hour = +cell.dataset.hour
+    const ev = EVENTS[hour/4][day]
+    const eventType = getEventType(ev)
 
-    // Data UTC do evento (apocalypse calendar)
-    let eventDate = new Date(now);
-    eventDate.setSeconds(0,0);
-    eventDate.setHours(hour, 0, 0, 0);
+    // Próxima ocorrência baseada no relógio do apocalipse (contínuo)
+    let dayDiff = day - nowApocDay
+    if(dayDiff < 0) dayDiff += 7
 
-    // Se NÃO for o evento atual, e já passou, mostrar só para a próxima semana
-    let dayDiff = day - nowDay;
-    if (dayDiff < 0 || (dayDiff === 0 && hour <= nowHour)) {
-      // Se já passou hoje, ou é de um dia anterior, pula para a próxima semana
-      dayDiff += 7;
-    }
-    // Se for o evento atual (mesmo dia e hora >= agora), mostra a data/hora atual
-    if (day === nowDay && hour <= nowHour && hour + 4 > nowHour) {
-      eventDate = new Date(now);
-    } else {
-      eventDate.setDate(now.getDate() + dayDiff);
+    // Mesmo dia: slots anteriores ao slot atual devem ir para a próxima semana.
+    if(dayDiff === 0 && hour < currentSlotStart){
+      dayDiff = 7
     }
 
-    // Data/hora local formatada
-    const localDateStr = eventDate.toLocaleDateString(CURRENT_LANG, { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const localTimeStr = eventDate.toLocaleTimeString(CURRENT_LANG, { hour: '2-digit', minute: '2-digit', hour12: !is24h() });
+    const occurrenceApoc = new Date(nowApoc)
+    occurrenceApoc.setUTCHours(hour, 0, 0, 0)
+    occurrenceApoc.setUTCDate(nowApoc.getUTCDate() + dayDiff)
 
-    cell.dataset.event = eventType;
+    // Converte datetime do apocalipse para datetime local real.
+    // offsetMs é negativo (ex: -7200000 para UTC-2)
+    // Para reverter a transformação de getApocNow(), precisamos subtrair offsetMs
+    const occurrenceLocal = new Date(occurrenceApoc.getTime() - offsetMs)
+
+    const localDateStr = occurrenceLocal.toLocaleDateString(CURRENT_LANG, {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    })
+    const localTimeStr = formatTime(occurrenceLocal, CURRENT_LANG)
+
+    cell.dataset.event = eventType
 
     cell.innerHTML = `
       <div class="cell-date">
@@ -208,8 +209,8 @@ function fillCells(){
       <div class="cell-event">
         ${T.events[ev]}
       </div>
-    `;
-  });
+    `
+  })
 }
 
 //
