@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12g",
   localLabel: "Czas lokalny",
   apocLabel: "Czas Apokalipsy",
-  nextLabel: "Następne wydarzenie"
+  nextLabel: "Następne wydarzenie",
+  dayLabel: "Dzień"
 }

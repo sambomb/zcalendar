@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12Saa",
   localLabel: "Muda wa Karibu",
   apocLabel: "Muda wa Apocalypse",
-  nextLabel: "Tukio Lijalo"
+  nextLabel: "Tukio Lijalo",
+  dayLabel: "Siku"
 }

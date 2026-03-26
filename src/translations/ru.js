@@ -35,5 +35,6 @@ export default {
   timeFormat12: "12ч",
   localLabel: "Местное время",
   apocLabel: "Время Апокалипсиса",
-  nextLabel: "Следующее событие"
+  nextLabel: "Следующее событие",
+  dayLabel: "День"
 }

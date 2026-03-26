@@ -35,5 +35,6 @@ export default {
   timeFormat12: "١٢ س",
   localLabel: "الوقت المحلي",
   apocLabel: "وقت نهاية العالم",
-  nextLabel: "الحدث التالي"
+  nextLabel: "الحدث التالي",
+  dayLabel: "يوم"
 }

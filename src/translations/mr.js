@@ -35,5 +35,6 @@ export default {
   timeFormat12: "१२ता.",
   localLabel: "स्थानिक वेळ",
   apocLabel: "अपोकॅलिप्स वेळ",
-  nextLabel: "पुढील इव्हेंट"
+  nextLabel: "पुढील इव्हेंट",
+  dayLabel: "दिवस"
 }

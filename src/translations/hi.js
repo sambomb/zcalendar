@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12घं",
   localLabel: "स्थानीय समय",
   apocLabel: "एपोकैलिप्स समय",
-  nextLabel: "अगली घटना"
+  nextLabel: "अगली घटना",
+  dayLabel: "दिन"
 }

@@ -126,7 +126,7 @@ function buildTable(){
     <th>${T.time}</th>
     ${T.days.map((d,i)=>`
       <th data-day="${i}">
-        ${d}
+        ${(T.dayLabel || "Day")} ${i} - ${d}
         <div class="day-title">${T.dayTitles[DAY_KEYS[i]]}</div>
       </th>
     `).join("")}
@@ -152,8 +152,11 @@ function buildTable(){
 //
 function fillCells(){
 
-  const baseDate = getApocDayStart();
   const now = new Date();
+  const nowDay = now.getDay();
+  const nowHour = now.getHours();
+  const nowMin = now.getMinutes();
+  const nowSec = now.getSeconds();
 
   document.querySelectorAll(".cell").forEach(cell => {
     const day = +cell.dataset.day;
@@ -162,13 +165,21 @@ function fillCells(){
     const eventType = getEventType(ev);
 
     // Data UTC do evento (apocalypse calendar)
-    let eventDate = new Date(baseDate);
-    eventDate.setUTCDate(baseDate.getUTCDate() + day);
-    eventDate.setUTCHours(hour, 0, 0, 0);
+    let eventDate = new Date(now);
+    eventDate.setSeconds(0,0);
+    eventDate.setHours(hour, 0, 0, 0);
 
-    // Se o evento já passou, mostrar só para a próxima semana
-    if (eventDate < now) {
-      eventDate.setUTCDate(eventDate.getUTCDate() + 7);
+    // Se NÃO for o evento atual, e já passou, mostrar só para a próxima semana
+    let dayDiff = day - nowDay;
+    if (dayDiff < 0 || (dayDiff === 0 && hour <= nowHour)) {
+      // Se já passou hoje, ou é de um dia anterior, pula para a próxima semana
+      dayDiff += 7;
+    }
+    // Se for o evento atual (mesmo dia e hora >= agora), mostra a data/hora atual
+    if (day === nowDay && hour <= nowHour && hour + 4 > nowHour) {
+      eventDate = new Date(now);
+    } else {
+      eventDate.setDate(now.getDate() + dayDiff);
     }
 
     // Data/hora local formatada

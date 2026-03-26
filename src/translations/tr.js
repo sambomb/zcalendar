@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12s",
   localLabel: "Yerel Saat",
   apocLabel: "Kıyamet Saati",
-  nextLabel: "Sonraki Etkinlik"
+  nextLabel: "Sonraki Etkinlik",
+  dayLabel: "Gün"
 }

@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12小时",
   localLabel: "本地时间",
   apocLabel: "末日时间",
-  nextLabel: "下一个活动"
+  nextLabel: "下一个活动",
+  dayLabel: "天"
 }

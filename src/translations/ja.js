@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12時間",
   localLabel: "現地時間",
   apocLabel: "アポカリプス時間",
-  nextLabel: "次のイベント"
+  nextLabel: "次のイベント",
+  dayLabel: "日"
 }

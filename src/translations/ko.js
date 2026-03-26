@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12시",
   localLabel: "현지 시간",
   apocLabel: "아포칼립스 시간",
-  nextLabel: "다음 이벤트"
+  nextLabel: "다음 이벤트",
+  dayLabel: "일"
 }

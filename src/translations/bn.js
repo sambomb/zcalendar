@@ -37,5 +37,6 @@ export default {
   timeFormat12: "১২ঘণ্টা",
   localLabel: "স্থানীয় সময়",
   apocLabel: "অ্যাপোক্যালিপ্স সময়",
-  nextLabel: "পরবর্তী ইভেন্ট"
+  nextLabel: "পরবর্তী ইভেন্ট",
+  dayLabel: "দিন"
 }

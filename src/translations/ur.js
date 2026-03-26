@@ -35,5 +35,6 @@ export default {
   timeFormat12: "۱۲ گ",
   localLabel: "مقامی وقت",
   apocLabel: "اپوکلیپس وقت",
-  nextLabel: "اگلا ایونٹ"
+  nextLabel: "اگلا ایونٹ",
+  dayLabel: "دن"
 }

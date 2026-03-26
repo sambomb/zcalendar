@@ -37,5 +37,6 @@ export default {
   timeFormat12: "12J",
   localLabel: "Waktu Lokal",
   apocLabel: "Waktu Apocalypse",
-  nextLabel: "Event Berikutnya"
+  nextLabel: "Event Berikutnya",
+  dayLabel: "Hari"
 }
