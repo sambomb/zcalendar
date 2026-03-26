@@ -1,4 +1,47 @@
-const modules = import.meta.glob('./translations/*.js')
+// Importar tradução explicitamente para evitar problemas de glob em iframes
+import * as enMod from './translations/en.js'
+import * as ptBrMod from './translations/pt-br.js'
+import * as ptPtMod from './translations/pt-pt.js'
+import * as esMod from './translations/es.js'
+import * as frMod from './translations/fr.js'
+import * as deMod from './translations/de.js'
+import * as itMod from './translations/it.js'
+import * as ruMod from './translations/ru.js'
+import * as zhMod from './translations/zh.js'
+import * as jaMod from './translations/ja.js'
+import * as koMod from './translations/ko.js'
+import * as hiMod from './translations/hi.js'
+import * as bnMod from './translations/bn.js'
+import * as mrMod from './translations/mr.js'
+import * as arMod from './translations/ar.js'
+import * as urMod from './translations/ur.js'
+import * as idMod from './translations/id.js'
+import * as trMod from './translations/tr.js'
+import * as plMod from './translations/pl.js'
+import * as swMod from './translations/sw.js'
+
+const modules = {
+  './translations/en.js': () => Promise.resolve(enMod),
+  './translations/pt-br.js': () => Promise.resolve(ptBrMod),
+  './translations/pt-pt.js': () => Promise.resolve(ptPtMod),
+  './translations/es.js': () => Promise.resolve(esMod),
+  './translations/fr.js': () => Promise.resolve(frMod),
+  './translations/de.js': () => Promise.resolve(deMod),
+  './translations/it.js': () => Promise.resolve(itMod),
+  './translations/ru.js': () => Promise.resolve(ruMod),
+  './translations/zh.js': () => Promise.resolve(zhMod),
+  './translations/ja.js': () => Promise.resolve(jaMod),
+  './translations/ko.js': () => Promise.resolve(koMod),
+  './translations/hi.js': () => Promise.resolve(hiMod),
+  './translations/bn.js': () => Promise.resolve(bnMod),
+  './translations/mr.js': () => Promise.resolve(mrMod),
+  './translations/ar.js': () => Promise.resolve(arMod),
+  './translations/ur.js': () => Promise.resolve(urMod),
+  './translations/id.js': () => Promise.resolve(idMod),
+  './translations/tr.js': () => Promise.resolve(trMod),
+  './translations/pl.js': () => Promise.resolve(plMod),
+  './translations/sw.js': () => Promise.resolve(swMod)
+}
 
 export let T = {}
 export let CURRENT_LANG = "en"
