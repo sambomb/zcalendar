@@ -1,6 +1,6 @@
-  timeFormat24: "২৪ঘণ্টা",
-  timeFormat12: "১২ঘণ্টা"
 export default {
+  timeFormat24: "২৪ঘণ্টা",
+  timeFormat12: "১২ঘণ্টা",
   time: "সময়",
   current: "বর্তমান ইভেন্ট",
   alert: "রাডার মিশন সংগ্রহ করবেন না",
