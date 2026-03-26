@@ -59,6 +59,15 @@ export let T = {
 }
 export let CURRENT_LANG = "en"
 
+// Limpar localStorage de valores inválidos (ex: en-US)
+function cleanStoredLang() {
+  const stored = localStorage.getItem("lang")
+  if(stored && !LANGS.find(l => l.code === stored)) {
+    console.warn("Removing invalid language from storage:", stored)
+    localStorage.removeItem("lang")
+  }
+}
+
 export const LANGS = [
   {code:"en",label:"🇺🇸 English"},
   {code:"pt-br",label:"🇧🇷 Português (BR)"},
@@ -84,23 +93,24 @@ export const LANGS = [
 ]
 
 export async function loadLang(lang){
+  cleanStoredLang()
   CURRENT_LANG = lang
 
   // Tradução automática
   if(lang === "auto"){
     const nav = (navigator.language || "en").toLowerCase();
-    const base = (await modules['./translations/en.js']()).default;
+    const baseMod = await modules['./translations/en.js']()
+    const base = baseMod.default || baseMod
     const cacheKey = `auto-translation-${nav}`;
     let autoT = localStorage.getItem(cacheKey);
     if(autoT){
       T = JSON.parse(autoT);
     } else {
-      // Chave/valor traduzido
+      // Start with complete base
       T = {...base};
       for(const k of Object.keys(base)){
         if(typeof base[k] === "string"){
           try {
-            // Google Translate API gratuita (exemplo, substitua pela sua chave real)
             const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${nav}&dt=t&q=${encodeURIComponent(base[k])}`;
             const resp = await fetch(url);
             const data = await resp.json();
@@ -117,28 +127,37 @@ export async function loadLang(lang){
     return;
   }
 
-  const key = `./translations/${lang}.js`
+  // Garantir que o idioma solicitado existe
+  const validLang = LANGS.find(l => l.code === lang)?.code || "en"
+  const key = `./translations/${validLang}.js`
+  
   if(!modules[key]){
-    console.warn("Language file missing:", key, "- falling back to English")
-    lang = "en"
+    console.warn("Language file missing:", key, "- using English")
     CURRENT_LANG = "en"
+    const enMod = await modules['./translations/en.js']()
+    T = {... (enMod.default || enMod)}
+    localStorage.setItem("lang", "en")
+    return
   }
   
-  const finalKey = `./translations/${lang}.js`
-  const mod = await modules[finalKey]()
-  const base = (await modules['./translations/en.js']()).default
-  // Fallback seguro: retorna chave do inglês se faltar
-  T = new Proxy(mod.default, {
-    get(target, prop) {
-      if (prop in target) return target[prop]
-      return base[prop]
-    }
-  })
-  localStorage.setItem("lang", lang)
+  const mod = await modules[key]()
+  const langData = mod.default || mod
+  const baseMod = await modules['./translations/en.js']()
+  const base = baseMod.default || baseMod
+  
+  // Sempre fazer spread completo de langData primeiro, depois adicionar fallbacks
+  T = {...base}
+  if(langData && typeof langData === "object") {
+    Object.assign(T, langData)
+  }
+  
+  CURRENT_LANG = validLang
+  localStorage.setItem("lang", validLang)
 }
 
 export function detectLang(){
-
+  cleanStoredLang()
+  
   const saved = localStorage.getItem("lang")
   if(saved) {
     const validCode = LANGS.find(l => l.code === saved)?.code
