@@ -1,8 +1,8 @@
 
 export const ICONS={
- red:"images/red.png",
- gold:"images/gold.png",
- white:"images/white.png"
+ red:"/zcalendar/images/red.png",
+ gold:"/zcalendar/images/gold.png",
+ white:"/zcalendar/images/white.png"
 };
 
 export const DAY_KEYS=["peace","vehicle","shelter","science","hero","growth","enemy"];
