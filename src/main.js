@@ -1,13 +1,10 @@
-import { updateCalendar } from './ui.js'
-import { renderMobile } from './mobile.js'
 
-export function startLoop(){
+import {loadLang,detectLang,buildLangSelect} from "./translate.js";
+import {initUI} from "./ui.js";
 
-  updateCalendar()
-  renderMobile()
-
-  setInterval(()=>{
-    updateCalendar()
-    renderMobile()
-  },1000)
-}
+(async()=>{
+ const lang=detectLang();
+ await loadLang(lang);
+ buildLangSelect();
+ initUI();
+})();

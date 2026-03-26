@@ -1,70 +1,12 @@
-body{
-  background:#000;
-  color:#eaffff;
-  margin:0;
-  transition:all 0.3s;
-}
 
-/* RTL SUPPORT */
-body.rtl{
-  direction:rtl;
-  text-align:right;
-}
-
-/* TABLE */
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  border:1px solid #222;
-  padding:8px;
-  text-align:center;
-}
-
-body.rtl th,
-body.rtl td{
-  text-align:center;
-}
-
-/* ACTIVE */
-.cell.active{
-  border:2px solid #00ffcc;
-  box-shadow:0 0 10px #00ffcc;
-}
-
-/* DIM */
-.cell.dim{
-  opacity:0.2;
-}
-
-/* TODAY COLUMN */
-.today-col{
-  background:#021c1c;
-}
-
-/* ALERT */
-.alert.active{
-  color:#ff3b3b;
-  font-weight:bold;
-  text-align:center;
-}
-
-/* FILTERS */
-#eventFilters{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-}
-
-button.selected{
-  background:#00ffcc;
-  color:#000;
-}
-
-/* TIME */
-#timeInfo{
-  text-align:center;
-  margin:15px;
-}
+body{background:#000;color:#fff;font-family:Segoe UI;margin:0}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #222;padding:8px;text-align:center}
+.radar-icon{width:32px;height:32px}
+.cell.active{outline:2px solid #0ff}
+.today-col{background:#022}
+.cell.dim{opacity:.2}
+.alert{color:red;text-align:center}
+#eventFilters{display:flex;justify-content:center;gap:8px}
+button.selected{background:#0ff;color:#000}
+#timeInfo{text-align:center;margin:10px}

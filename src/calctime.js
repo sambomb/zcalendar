@@ -1,27 +1,14 @@
-const SERVER_OFFSET = -2
 
-export function getApoc(){
+let use24h=true;
 
-  const now = new Date()
-  const utc = now.getTime() + now.getTimezoneOffset()*60000
-  const server = new Date(utc + SERVER_OFFSET*3600000)
+export function toggleFormat(){use24h=!use24h}
 
-  let h = server.getHours()
-  let m = server.getMinutes()
-  let s = server.getSeconds()
+export function getLocal(){return new Date()}
 
-  if(s >= 30) m++
-  if(m === 60){ m=0; h++ }
-  if(h === 24) h=0
-
-  return { h, m }
+export function formatTime(d,lang){
+ return new Intl.DateTimeFormat(lang,{hour:"2-digit",minute:"2-digit",hour12:!use24h}).format(d)
 }
 
-export function formatLocalTime(date, lang){
-
-  return new Intl.DateTimeFormat(lang, {
-    hour:"2-digit",
-    minute:"2-digit",
-    second:"2-digit"
-  }).format(date)
+export function formatDate(d,lang){
+ return new Intl.DateTimeFormat(lang,{day:"numeric",month:"short"}).format(d)
 }
