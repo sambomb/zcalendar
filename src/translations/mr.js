@@ -33,6 +33,4 @@ export default {
   },
   timeFormat24: "२४ता.",
   timeFormat12: "१२ता."
-  timeFormat24: "२४ता.",
-  timeFormat12: "१२ता."
 }
