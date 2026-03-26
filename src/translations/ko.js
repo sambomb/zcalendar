@@ -1,6 +1,6 @@
-  timeFormat24: "24시",
-  timeFormat12: "12시"
 export default {
+  timeFormat24: "24시",
+  timeFormat12: "12시",
   time: "시간",
   current: "현재 이벤트",
   alert: "레이더 미션을 수령하지 마세요",

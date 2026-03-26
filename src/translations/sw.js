@@ -1,8 +1,6 @@
-    timeFormat24: "24Saa",
-    timeFormat12: "12Saa"
-  timeFormat24: "24Saa",
-  timeFormat12: "12Saa"
 export default {
+  timeFormat24: "24Saa",
+  timeFormat12: "12Saa",
   time: "Muda",
   current: "Tukio la Sasa",
   alert: "Usichukue misheni za rada",

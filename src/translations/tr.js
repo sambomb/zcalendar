@@ -1,6 +1,6 @@
-  timeFormat24: "24s",
-  timeFormat12: "12s"
 export default {
+  timeFormat24: "24s",
+  timeFormat12: "12s",
   time: "Zaman",
   current: "Mevcut Etkinlik",
   alert: "Radar görevlerini alma",

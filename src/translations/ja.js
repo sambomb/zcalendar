@@ -1,6 +1,6 @@
-  timeFormat24: "24時間",
-  timeFormat12: "12時間"
 export default {
+  timeFormat24: "24時間",
+  timeFormat12: "12時間",
   time: "時間",
   current: "現在のイベント",
   alert: "レーダーミッションを受け取らないでください",

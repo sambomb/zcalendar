@@ -1,6 +1,6 @@
-  timeFormat24: "24h",
-  timeFormat12: "12h"
 export default {
+  timeFormat24: "24h",
+  timeFormat12: "12h",
   time: "Zeit",
   current: "Aktuelles Ereignis",
   alert: "Radar-Missionen nicht einlösen",

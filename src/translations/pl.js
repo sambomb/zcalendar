@@ -1,6 +1,6 @@
-  timeFormat24: "24g",
-  timeFormat12: "12g"
 export default {
+  timeFormat24: "24g",
+  timeFormat12: "12g",
   time: "Czas",
   current: "Bieżące wydarzenie",
   alert: "Nie odbieraj misji radarowych",

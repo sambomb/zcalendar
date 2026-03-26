@@ -1,6 +1,6 @@
-  timeFormat24: "24小时",
-  timeFormat12: "12小时"
 export default {
+  timeFormat24: "24小时",
+  timeFormat12: "12小时",
   time: "时间",
   current: "当前活动",
   alert: "不要领取雷达任务",

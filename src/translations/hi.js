@@ -1,6 +1,6 @@
-  timeFormat24: "24घं",
-  timeFormat12: "12घं"
 export default {
+  timeFormat24: "24घं",
+  timeFormat12: "12घं",
   time: "समय",
   current: "वर्तमान घटना",
   alert: "रेडार मिशन प्राप्त न करें",

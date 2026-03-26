@@ -1,6 +1,6 @@
-  timeFormat24: "24J",
-  timeFormat12: "12J"
 export default {
+  timeFormat24: "24J",
+  timeFormat12: "12J",
   time: "Waktu",
   current: "Event Saat Ini",
   alert: "Jangan klaim misi radar",
