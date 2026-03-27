@@ -1,4 +1,4 @@
-export const DAY_IDS_BY_INDEX = [
+﻿export const DAY_IDS_BY_INDEX = [
   "day-peace",
   "day-vehicle",
   "day-shelter",
@@ -15,41 +15,41 @@ export const HERO_FACTION_MENU = [
     heroIds: [
       "hero-katrina",
       "hero-sophia",
-      "hero-laura",
+      "hero-selena",
       "hero-oliveira",
       "hero-vivian",
       "hero-miranda",
-      "hero-fiona",
-      "hero-isabella",
-      "hero-audrey"
+      "hero-ava",
+      "hero-audrey",
+      "hero-giselle"
     ]
   },
   {
     id: "wings-of-dawn",
     title: "Wings of Dawn",
     heroIds: [
-      "hero-chinatsu",
-      "hero-mia",
+      "hero-laura",
       "hero-amelia",
       "hero-scarlett",
-      "hero-elizabeth",
-      "hero-leah",
-      "hero-ava"
+      "hero-fiona",
+      "hero-isabella",
+      "hero-christina",
+      "hero-angelina",
+      "hero-natalie"
     ]
   },
   {
     id: "order-guard",
     title: "Order Guard",
     heroIds: [
+      "hero-chinatsu",
+      "hero-mia",
       "hero-evelyn",
-      "hero-selena",
       "hero-maria",
-      "hero-christina",
+      "hero-elizabeth",
+      "hero-leah",
       "hero-athena",
-      "hero-william",
-      "hero-angelina",
-      "hero-natalie",
-      "hero-giselle"
+      "hero-william"
     ]
   }
 ]
@@ -79,31 +79,31 @@ export const GUIDE_ROUTES = [
 
   { id: "resource-heroes", path: "heroes/index.html", group: "heroes" },
 
-  { id: "hero-katrina", path: "heroes/katrina.html", group: "heroes" },
-  { id: "hero-sophia", path: "heroes/sophia.html", group: "heroes" },
-  { id: "hero-laura", path: "heroes/laura.html", group: "heroes" },
-  { id: "hero-chinatsu", path: "heroes/chinatsu.html", group: "heroes" },
-  { id: "hero-mia", path: "heroes/mia.html", group: "heroes" },
-  { id: "hero-oliveira", path: "heroes/oliveira.html", group: "heroes" },
-  { id: "hero-amelia", path: "heroes/amelia.html", group: "heroes" },
-  { id: "hero-scarlett", path: "heroes/scarlett.html", group: "heroes" },
-  { id: "hero-evelyn", path: "heroes/evelyn.html", group: "heroes" },
-  { id: "hero-selena", path: "heroes/selena.html", group: "heroes" },
-  { id: "hero-vivian", path: "heroes/vivian.html", group: "heroes" },
-  { id: "hero-miranda", path: "heroes/miranda.html", group: "heroes" },
-  { id: "hero-fiona", path: "heroes/fiona.html", group: "heroes" },
-  { id: "hero-elizabeth", path: "heroes/elizabeth.html", group: "heroes" },
-  { id: "hero-maria", path: "heroes/maria.html", group: "heroes" },
-  { id: "hero-isabella", path: "heroes/isabella.html", group: "heroes" },
-  { id: "hero-leah", path: "heroes/leah.html", group: "heroes" },
-  { id: "hero-ava", path: "heroes/ava.html", group: "heroes" },
-  { id: "hero-christina", path: "heroes/christina.html", group: "heroes" },
-  { id: "hero-athena", path: "heroes/athena.html", group: "heroes" },
-  { id: "hero-audrey", path: "heroes/audrey.html", group: "heroes" },
-  { id: "hero-william", path: "heroes/william.html", group: "heroes" },
-  { id: "hero-angelina", path: "heroes/angelina.html", group: "heroes" },
-  { id: "hero-natalie", path: "heroes/natalie.html", group: "heroes" },
-  { id: "hero-giselle", path: "heroes/giselle.html", group: "heroes" },
+  { id: "hero-katrina", path: "heroes/blood-rose/katrina.html", group: "heroes" },
+  { id: "hero-sophia", path: "heroes/blood-rose/sophia.html", group: "heroes" },
+  { id: "hero-laura", path: "heroes/wings-of-dawn/laura.html", group: "heroes" },
+  { id: "hero-chinatsu", path: "heroes/order-guard/chinatsu.html", group: "heroes" },
+  { id: "hero-mia", path: "heroes/order-guard/mia.html", group: "heroes" },
+  { id: "hero-oliveira", path: "heroes/blood-rose/oliveira.html", group: "heroes" },
+  { id: "hero-amelia", path: "heroes/wings-of-dawn/amelia.html", group: "heroes" },
+  { id: "hero-scarlett", path: "heroes/wings-of-dawn/scarlett.html", group: "heroes" },
+  { id: "hero-evelyn", path: "heroes/order-guard/evelyn.html", group: "heroes" },
+  { id: "hero-selena", path: "heroes/blood-rose/selena.html", group: "heroes" },
+  { id: "hero-vivian", path: "heroes/blood-rose/vivian.html", group: "heroes" },
+  { id: "hero-miranda", path: "heroes/blood-rose/miranda.html", group: "heroes" },
+  { id: "hero-fiona", path: "heroes/wings-of-dawn/fiona.html", group: "heroes" },
+  { id: "hero-elizabeth", path: "heroes/order-guard/elizabeth.html", group: "heroes" },
+  { id: "hero-maria", path: "heroes/order-guard/maria.html", group: "heroes" },
+  { id: "hero-isabella", path: "heroes/wings-of-dawn/isabella.html", group: "heroes" },
+  { id: "hero-leah", path: "heroes/order-guard/leah.html", group: "heroes" },
+  { id: "hero-ava", path: "heroes/blood-rose/ava.html", group: "heroes" },
+  { id: "hero-christina", path: "heroes/wings-of-dawn/christina.html", group: "heroes" },
+  { id: "hero-athena", path: "heroes/order-guard/athena.html", group: "heroes" },
+  { id: "hero-audrey", path: "heroes/blood-rose/audrey.html", group: "heroes" },
+  { id: "hero-william", path: "heroes/order-guard/william.html", group: "heroes" },
+  { id: "hero-angelina", path: "heroes/wings-of-dawn/angelina.html", group: "heroes" },
+  { id: "hero-natalie", path: "heroes/wings-of-dawn/natalie.html", group: "heroes" },
+  { id: "hero-giselle", path: "heroes/blood-rose/giselle.html", group: "heroes" },
 
   { id: "resource-point-rules", path: "systems/point-rules.html", group: "systems" },
   { id: "resource-general-tips", path: "systems/general-tips.html", group: "systems" },

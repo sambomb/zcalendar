@@ -177,12 +177,13 @@ export function detectLang(){
 export function buildLangSelect(){
 
   const select = document.getElementById("langSelect")
+  if(!select) return
 
   select.innerHTML = LANGS.map(l =>
     `<option value="${l.code}">${l.label}</option>`
   ).join("")
 
-  const current = detectLang()
+  const current = localStorage.getItem("lang") || detectLang()
   select.value = current
 
   select.onchange = async () => {
@@ -191,7 +192,7 @@ export function buildLangSelect(){
   }
 
   // UI direction support for RTL languages
-  document.documentElement.setAttribute("dir", ["ar","ur"].includes(current) ? "rtl" : "ltr")
+  document.documentElement.setAttribute("dir", ["ar","ur"].includes(select.value) ? "rtl" : "ltr")
 }
 
 export function isRtl(){

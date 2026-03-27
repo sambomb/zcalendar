@@ -1,4 +1,4 @@
-import { loadLang, buildLangSelect, T } from "./translate.js"
+import { loadLang, buildLangSelect, T, detectLang } from "./translate.js"
 import { GUIDE_MAP } from "./guides.js"
 import { MENU_GROUPS, HERO_FACTION_MENU, getGuidePath, getHomePath } from "./routes.js"
 import { SCORE_TABLE, DISPLAY_TO_BASE_DIVISOR } from "./points.js"
@@ -26,7 +26,82 @@ function guideTitle(guide){
 }
 
 function guideSummary(guide){
+  if(guide.id.startsWith("hero-") && !guide.useGuideSections){
+    return formatTemplate(
+      safeText(T.heroSummaryTemplate, "{name} profile and planning notes for Hero Initiative and long-term roster growth."),
+      { name: guide.title }
+    )
+  }
   return T.guideSummaries?.[guide.id] || guide.summary
+}
+
+function formatTemplate(template, values){
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    String(template)
+  )
+}
+
+function getHeroInitials(name){
+  return String(name)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || "")
+    .join("")
+}
+
+function getPortraitHtml(guide){
+  if(guide.image){
+    return `<div class="guide-portrait-wrap"><img class="guide-portrait" src="${withBase(guide.image)}" alt="${escapeHtml(guideTitle(guide))}"></div>`
+  }
+
+  if(!guide.id.startsWith("hero-")) return ""
+
+  const tierClass = guide.tier === "S-Type"
+    ? "hero-tier-s"
+    : guide.tier === "A-Type"
+      ? "hero-tier-a"
+      : "hero-tier-b"
+
+  return `
+    <div class="guide-portrait-wrap hero-portrait-wrap ${tierClass}" aria-label="${escapeHtml(guideTitle(guide))}">
+      <div class="guide-avatar hero-avatar-large">${escapeHtml(getHeroInitials(guide.title))}</div>
+    </div>
+  `
+}
+
+function getGuideSections(guide){
+  if(guide.useGuideSections) return guide.sections
+  if(!guide.id.startsWith("hero-")) return guide.sections
+
+  return [
+    {
+      title: safeText(T.heroSectionProfile, "Profile snapshot"),
+      items: [
+        formatTemplate(safeText(T.heroProfileType, "Type in source list: {tier}."), { tier: guide.tier }),
+        formatTemplate(safeText(T.heroProfileFaction, "Faction: {faction}."), { faction: guide.faction }),
+        safeText(T.heroProfileStars, "Use this page to track star level, equipment breakpoints and daily upgrade targets."),
+        safeText(T.heroProfileMainMarch, "Keep your main march heroes ahead of side rosters during Hero Initiative spending windows.")
+      ]
+    },
+    {
+      title: safeText(T.heroSectionPower, "Power model checklist"),
+      items: [
+        safeText(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
+        safeText(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
+        safeText(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
+      ]
+    },
+    {
+      title: safeText(T.heroSectionSkills, "Skill planning"),
+      items: [
+        safeText(T.heroSkillsCore, "Prioritize the core combat skill used in your main lineup before spreading books across backup heroes."),
+        safeText(T.heroSkillsPassive, "Permanent passives and march-impact skills usually give better long-term value than niche utility upgrades."),
+        safeText(T.heroSkillsBooks, "Save books and fragments for Hero Initiative so skill upgrades contribute to both power growth and event score.")
+      ]
+    }
+  ]
 }
 
 function roundBonusPoints(basePoints, bonusPercent){
@@ -35,6 +110,7 @@ function roundBonusPoints(basePoints, bonusPercent){
 }
 
 function withBase(path){
+  if(/^https?:\/\//i.test(String(path))) return String(path)
   const normalizedBase = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`
   return `${normalizedBase}${String(path).replace(/^\/+/, "")}`
 }
@@ -167,9 +243,8 @@ function renderGuidePage(guideId){
     `
     : ""
 
-  const guideImageHtml = guide.image
-    ? `<div class="guide-portrait-wrap"><img class="guide-portrait" src="${withBase(guide.image)}" alt="${escapeHtml(guideTitle(guide))}"></div>`
-    : ""
+  const guideImageHtml = getPortraitHtml(guide)
+  const guideSections = getGuideSections(guide)
 
   const relatedLinks = guide.related
     .map((id) => {
@@ -189,7 +264,7 @@ function renderGuidePage(guideId){
       </header>
 
       <section class="guide-section-grid">
-        ${guide.sections.map((section) => `
+        ${guideSections.map((section) => `
           <section class="guide-detail-card">
             <h3>${escapeHtml(section.title)}</h3>
             <ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
@@ -247,46 +322,7 @@ function hookBonusCalculator(){
 function renderPointConverter(guideId, updateBonus){
   const section = document.querySelector(".point-converter")
   if(!section) return
-
-  const scoreSection = SCORE_TABLE[guideId]
-  if(!scoreSection?.enableBonusInput || !updateBonus){
-    section.hidden = true
-    return
-  }
-
-  const title = document.getElementById("converterTitle")
-  const help = document.getElementById("converterHelp")
-  const form = document.getElementById("pointConverterForm")
-  const input = document.getElementById("displayedPointsInput")
-  const button = document.getElementById("converterButton")
-  const label = document.getElementById("basePointsLabel")
-  const output = document.getElementById("basePointsOutput")
-
-  if(!form || !input || !output) return
-
-  section.hidden = false
-  if(title) title.textContent = safeText(T.converterTitle, "Bonus converter")
-  if(help) help.textContent = safeText(T.bonusConverterHelp, "Adjust bonus (%) to update the table values.")
-  if(button) button.textContent = safeText(T.converterButton, "Apply")
-  if(label) label.textContent = safeText(T.bonusPercentLabel, "Bonus points (%)") + ":"
-
-  input.min = "0"
-  input.step = "0.1"
-  input.value = "0"
-  input.setAttribute("aria-label", safeText(T.bonusPercentLabel, "Bonus points (%)"))
-
-  const apply = () => {
-    updateBonus(input.value)
-    output.textContent = `${input.value}%`
-  }
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault()
-    apply()
-  })
-
-  input.addEventListener("input", apply)
-  apply()
+  section.remove()
 }
 
 function renderDonationPanel(){
@@ -301,10 +337,10 @@ function renderDonationPanel(){
   panel.className = "donate-panel guide-donate"
   panel.innerHTML = `
     <div class="donate-copy">
-      <p class="section-kicker">Support</p>
-      <h2>Support this project</h2>
-      <p>If this page helped, you can support updates and maintenance through PayPal.</p>
-      <a class="donate-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer">Donate with PayPal</a>
+      <p class="section-kicker">${escapeHtml(safeText(T.donateKicker, "Support"))}</p>
+      <h2>${escapeHtml(safeText(T.donateTitle, "Support this project"))}</h2>
+      <p>${escapeHtml(safeText(T.donateBody, "If this page helped, you can support updates and maintenance through PayPal."))}</p>
+      <a class="donate-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer">${escapeHtml(safeText(T.donateCta, "Donate with PayPal"))}</a>
     </div>
     <a class="donate-qr-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer" aria-label="Donate via PayPal QR code">
       <img class="donate-qr" src="${withBase("donate.png")}" alt="PayPal donation QR code">
@@ -321,11 +357,7 @@ function renderDonationPanel(){
 }
 
 async function init(){
-  await loadLang("en")
-  const savedLang = localStorage.getItem("lang")
-  if(savedLang && savedLang !== "en"){
-    await loadLang(savedLang)
-  }
+  await loadLang(localStorage.getItem("lang") || detectLang() || "en")
 
   buildLangSelect()
 

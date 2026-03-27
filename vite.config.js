@@ -5,13 +5,26 @@ import { readdirSync } from 'node:fs'
 
 function htmlEntriesFrom(dir, prefix) {
   const absDir = resolve(__dirname, dir)
-  return readdirSync(absDir)
-    .filter((name) => name.endsWith('.html'))
-    .reduce((acc, name) => {
-      const key = `${prefix}_${name.replace('.html', '').replace(/[^a-zA-Z0-9_-]/g, '_')}`
-      acc[key] = resolve(__dirname, `${dir}/${name}`)
+
+  function walk(currentAbs, currentRel = '') {
+    return readdirSync(currentAbs, { withFileTypes: true }).reduce((acc, entry) => {
+      const relPath = currentRel ? `${currentRel}/${entry.name}` : entry.name
+      const absPath = resolve(currentAbs, entry.name)
+
+      if (entry.isDirectory()) {
+        return { ...acc, ...walk(absPath, relPath) }
+      }
+
+      if (entry.isFile() && entry.name.endsWith('.html')) {
+        const key = `${prefix}_${relPath.replace('.html', '').replace(/[^a-zA-Z0-9_-]/g, '_')}`
+        acc[key] = absPath
+      }
+
       return acc
     }, {})
+  }
+
+  return walk(absDir)
 }
 
 const GUIDE_INPUTS = {

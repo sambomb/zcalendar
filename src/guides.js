@@ -6,32 +6,399 @@ const withBase = (example) => ({
 })
 
 const HERO_ENTRIES = [
-  { id: "hero-katrina", name: "Katrina", tier: "S-Type", faction: "Blood Rose" },
-  { id: "hero-sophia", name: "Sophia", tier: "S-Type", faction: "Blood Rose" },
-  { id: "hero-laura", name: "Laura", tier: "S-Type", faction: "Blood Rose" },
-  { id: "hero-chinatsu", name: "Chinatsu", tier: "S-Type", faction: "Wings of Dawn" },
-  { id: "hero-mia", name: "Mia", tier: "S-Type", faction: "Wings of Dawn" },
-  { id: "hero-oliveira", name: "Oliveira", tier: "S-Type", faction: "Blood Rose" },
-  { id: "hero-amelia", name: "Amelia", tier: "S-Type", faction: "Wings of Dawn" },
-  { id: "hero-scarlett", name: "Scarlett", tier: "S-Type", faction: "Wings of Dawn" },
-  { id: "hero-evelyn", name: "Evelyn", tier: "S-Type", faction: "Order Guard" },
-  { id: "hero-selena", name: "Selena", tier: "S-Type", faction: "Order Guard" },
-  { id: "hero-vivian", name: "Vivian", tier: "A-Type", faction: "Blood Rose" },
-  { id: "hero-miranda", name: "Miranda", tier: "A-Type", faction: "Blood Rose" },
-  { id: "hero-fiona", name: "Fiona", tier: "A-Type", faction: "Blood Rose" },
-  { id: "hero-elizabeth", name: "Elizabeth", tier: "A-Type", faction: "Wings of Dawn" },
-  { id: "hero-maria", name: "Maria", tier: "A-Type", faction: "Order Guard" },
-  { id: "hero-isabella", name: "Isabella", tier: "A-Type", faction: "Blood Rose" },
-  { id: "hero-leah", name: "Leah", tier: "A-Type", faction: "Wings of Dawn" },
-  { id: "hero-ava", name: "Ava", tier: "A-Type", faction: "Wings of Dawn" },
-  { id: "hero-christina", name: "Christina", tier: "A-Type", faction: "Order Guard" },
-  { id: "hero-athena", name: "Athena", tier: "B-Type", faction: "Order Guard" },
-  { id: "hero-audrey", name: "Audrey", tier: "B-Type", faction: "Blood Rose" },
-  { id: "hero-william", name: "William", tier: "B-Type", faction: "Order Guard" },
-  { id: "hero-angelina", name: "Angelina", tier: "B-Type", faction: "Order Guard" },
-  { id: "hero-natalie", name: "Natalie", tier: "B-Type", faction: "Order Guard" },
-  { id: "hero-giselle", name: "Giselle", tier: "B-Type", faction: "Order Guard" }
+  {
+    id: "hero-katrina",
+    name: "Katrina",
+    tier: "S-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-katrina2.webp",
+    role: "Blood Rose / DEF",
+    priority: "Critical priority on LastZ.GG.",
+    summary: "Source-backed Katrina profile using Last Z Wiki faction/image data and LastZ.GG investment guidance.",
+    skillBullets: [
+      "LastZ.GG lists Katrina as the best overall hero and the first investment for most players.",
+      "Primary effect highlighted by LastZ.GG: DEF boost plus a troop HP passive.",
+      "Last Z Wiki beginner guide notes Katrina is obtained free at Stage 14 and is worth investing in for long-term use."
+    ]
+  },
+  {
+    id: "hero-sophia",
+    name: "Sophia",
+    tier: "S-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-sofia2.webp",
+    role: "Blood Rose / SUP",
+    priority: "Critical priority on LastZ.GG.",
+    summary: "Source-backed Sophia profile focused on construction value and early-game progression impact.",
+    skillBullets: [
+      "LastZ.GG highlights Sophia as non-negotiable for progression because she gives 90 minutes of free construction and a 40% construction speed buff.",
+      "Last Z Wiki beginner guide lists her base construction benefit as +90 free build minutes and +33% construction speed.",
+      "The same guide lists star progression notes: +15 free minutes at 1 star, +10% construction speed at 2 stars, +60 free minutes at 3 stars, -5% resource cost at 4 stars, and -10% resource cost at 5 stars."
+    ]
+  },
+  {
+    id: "hero-laura",
+    name: "Laura",
+    tier: "S-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-laura2.webp",
+    role: "Wings of Dawn / ATK",
+    priority: "Critical priority on LastZ.GG.",
+    summary: "Source-backed Laura profile using Fandom faction data and LastZ.GG radar-event guidance.",
+    skillBullets: [
+      "Fandom raw category data places Laura under Wings of Dawn.",
+      "LastZ.GG calls Laura a core attacker for Wings of Dawn builds.",
+      "Primary passive highlighted by LastZ.GG: 20 free radar events per day, plus attack value for Wings-focused progression."
+    ]
+  },
+  {
+    id: "hero-chinatsu",
+    name: "Chinatsu",
+    tier: "S-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-chinatsu2.webp",
+    role: "Guard of Order / SUP",
+    priority: "High priority on LastZ.GG.",
+    summary: "Source-backed Chinatsu profile focused on Alliance Duel optimization.",
+    skillBullets: [
+      "LastZ.GG lists Chinatsu as a high-priority support hero for Guard of Order.",
+      "Key effect called out by LastZ.GG: up to +55% Alliance Duel bonus points when the relevant skill is maxed.",
+      "LastZ.GG also notes her passive works from the bench, making her valuable even when not deployed in the march."
+    ]
+  },
+  {
+    id: "hero-mia",
+    name: "Mia",
+    tier: "S-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-mia2.webp",
+    role: "Guard of Order / SUP",
+    priority: "High priority on LastZ.GG.",
+    summary: "Source-backed Mia profile focused on gathering efficiency and daily farming value.",
+    skillBullets: [
+      "LastZ.GG identifies Mia as the best gathering hero among the currently exposed basics pages.",
+      "Main effects highlighted there: stronger haul size and faster march speed for resource runs.",
+      "The site explicitly recommends Mia for daily farm efficiency rather than frontline war value."
+    ]
+  },
+  {
+    id: "hero-oliveira",
+    name: "Oliveira",
+    tier: "S-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-oliveira2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Oliveira profile using Last Z Wiki hero listing and LastZ.GG priority grouping.",
+    skillBullets: [
+      "Last Z Wiki lists Oliveira under the Rosa faction, which maps to Blood Rose.",
+      "LastZ.GG places Oliveira in the situational / early-game group rather than the top-priority hero core.",
+      "Accessible source pages did not expose a detailed skill breakdown for Oliveira, so this page uses only the currently visible source-backed role guidance."
+    ]
+  },
+  {
+    id: "hero-amelia",
+    name: "Amelia",
+    tier: "S-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-emilia2.webp",
+    sourceAlias: "Emilia",
+    role: "Wings of Dawn / SUP",
+    priority: "High priority on LastZ.GG.",
+    summary: "Source-backed Amelia profile using Fandom faction data and the Last Z Wiki Emilia image reference as the closest exposed hero card asset.",
+    skillBullets: [
+      "Fandom raw category data places Amelia under Wings of Dawn.",
+      "LastZ.GG describes Amelia as Sophia's research-speed mirror: 90 free research minutes plus a 40% research speed boost.",
+      "LastZ.GG recommends getting Amelia to 3 stars quickly to improve dual-lab efficiency."
+    ]
+  },
+  {
+    id: "hero-scarlett",
+    name: "Scarlett",
+    tier: "S-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-scarlett2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Scarlett profile using Last Z Wiki faction placement and LastZ.GG priority grouping.",
+    skillBullets: [
+      "Last Z Wiki lists Scarlett under Alba, which maps to Wings of Dawn.",
+      "LastZ.GG places Scarlett in the situational / early-game bucket rather than the core must-have list.",
+      "Accessible source pages did not expose a detailed skill line for Scarlett on the currently available hero pages."
+    ]
+  },
+  {
+    id: "hero-evelyn",
+    name: "Evelyn",
+    tier: "S-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-evelyn2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Evelyn profile using Last Z Wiki faction placement and LastZ.GG priority grouping.",
+    skillBullets: [
+      "Last Z Wiki places Evelyn under Guardian, which maps to Guard of Order / Order Guard.",
+      "LastZ.GG groups Evelyn with situational heroes instead of the main upgrade-first list.",
+      "No detailed skill breakdown was exposed for Evelyn in the accessible source pages gathered for this build."
+    ]
+  },
+  {
+    id: "hero-selena",
+    name: "Selena",
+    tier: "S-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-selena2.webp",
+    priority: "Source-backed faction available; detailed skill notes not exposed on the fetched hero sources.",
+    summary: "Source-backed Selena profile using Last Z Wiki faction/image data.",
+    skillBullets: [
+      "Last Z Wiki lists Selena under Rosa, which maps to Blood Rose.",
+      "Accessible source pages did not expose a detailed skill breakdown for Selena.",
+      "Use this page as a source-backed faction/image reference until a fuller public skill page is available."
+    ]
+  },
+  {
+    id: "hero-vivian",
+    name: "Vivian",
+    tier: "A-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-vivian2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Vivian profile using Last Z Wiki faction placement and LastZ.GG priority grouping.",
+    skillBullets: [
+      "Last Z Wiki lists Vivian under Rosa, which maps to Blood Rose.",
+      "LastZ.GG groups Vivian under other situational / early-game heroes.",
+      "No detailed skill line was exposed for Vivian in the accessible source pages."
+    ]
+  },
+  {
+    id: "hero-miranda",
+    name: "Miranda",
+    tier: "A-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-miranda2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Miranda profile using Last Z Wiki faction placement and LastZ.GG priority grouping.",
+    skillBullets: [
+      "Last Z Wiki lists Miranda under Rosa, which maps to Blood Rose.",
+      "LastZ.GG includes Miranda in the situational / early-game hero group.",
+      "Accessible hero pages did not expose a detailed Miranda skill breakdown."
+    ]
+  },
+  {
+    id: "hero-fiona",
+    name: "Fiona",
+    tier: "A-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-fiona2.webp",
+    priority: "Strong beginner option from Last Z Wiki; situational group on LastZ.GG.",
+    summary: "Source-backed Fiona profile using Last Z Wiki beginner guidance and faction placement.",
+    skillBullets: [
+      "Last Z Wiki lists Fiona under Alba, which maps to Wings of Dawn.",
+      "The beginner guide calls Fiona an excellent early-game option for Formation 1 if you recruit her through the Club.",
+      "LastZ.GG currently groups Fiona outside the top must-have list, so treat her as a strong progression option but not a universal first-priority hero."
+    ]
+  },
+  {
+    id: "hero-elizabeth",
+    name: "Elizabeth",
+    tier: "A-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-elizabeth2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Elizabeth profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Elizabeth under Guardian, mapping to Order Guard.",
+      "LastZ.GG groups Elizabeth with situational / early-game heroes rather than the core investment list.",
+      "No detailed skill breakdown was exposed for Elizabeth in the accessible source set."
+    ]
+  },
+  {
+    id: "hero-maria",
+    name: "Maria",
+    tier: "A-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-maria2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Maria profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Maria under Guardian, mapping to Order Guard.",
+      "LastZ.GG groups Maria under situational / early-game heroes.",
+      "No detailed source-exposed skill line was available for Maria in the fetched public pages."
+    ]
+  },
+  {
+    id: "hero-isabella",
+    name: "Isabella",
+    tier: "A-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-isabella2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Isabella profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Isabella under Alba, mapping to Wings of Dawn.",
+      "LastZ.GG includes Isabella in the situational / early-game hero group.",
+      "No detailed skill breakdown was surfaced for Isabella from the accessible public hero pages."
+    ]
+  },
+  {
+    id: "hero-leah",
+    name: "Leah",
+    tier: "A-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-leah2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Leah profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Leah under Guardian, mapping to Order Guard.",
+      "LastZ.GG groups Leah outside the must-have list.",
+      "Detailed public skill data for Leah was not exposed in the pages fetched for this build."
+    ]
+  },
+  {
+    id: "hero-ava",
+    name: "Ava",
+    tier: "A-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-eva2.webp",
+    sourceAlias: "Eva",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Ava profile using Fandom faction data and the Last Z Wiki Eva image reference as the closest exposed public hero card asset.",
+    skillBullets: [
+      "Fandom raw category data places Ava under Blood Rose.",
+      "LastZ.GG groups Ava in the situational / early-game hero list.",
+      "Accessible hero pages did not expose a detailed skill line for Ava beyond that public grouping."
+    ]
+  },
+  {
+    id: "hero-christina",
+    name: "Christina",
+    tier: "A-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-cristina2.webp",
+    sourceAlias: "Cristina",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Christina profile using Last Z Wiki faction placement and the Cristina image reference.",
+    skillBullets: [
+      "Last Z Wiki places Cristina under Alba, mapping Christina to Wings of Dawn.",
+      "LastZ.GG includes Christina in the situational / early-game hero pool.",
+      "No detailed skill breakdown for Christina was exposed in the accessible source pages."
+    ]
+  },
+  {
+    id: "hero-athena",
+    name: "Athena",
+    tier: "B-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-atenea2.webp",
+    sourceAlias: "Atenea",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Athena profile using Last Z Wiki faction placement and the Atenea image reference.",
+    skillBullets: [
+      "Last Z Wiki places Atenea under Guardian, mapping Athena to Order Guard.",
+      "LastZ.GG groups Athena in the situational / early-game group.",
+      "Accessible source pages did not expose a detailed Athena skill breakdown."
+    ]
+  },
+  {
+    id: "hero-audrey",
+    name: "Audrey",
+    tier: "B-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-audrey2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Audrey profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Audrey under Rosa, mapping to Blood Rose.",
+      "LastZ.GG groups Audrey with situational / early-game heroes.",
+      "Detailed skill data for Audrey was not exposed in the accessible public pages fetched here."
+    ]
+  },
+  {
+    id: "hero-william",
+    name: "William",
+    tier: "B-Type",
+    faction: "Order Guard",
+    image: "https://lastzwiki.com/img-heroe-william2.webp",
+    priority: "Starter hero in Last Z Wiki beginner guide.",
+    summary: "Source-backed William profile using beginner-guide advice and Last Z Wiki faction placement.",
+    skillBullets: [
+      "Last Z Wiki lists William under Guardian, mapping to Order Guard.",
+      "The beginner guide describes William as a basic starter hero useful only in the early game.",
+      "That same guide recommends not investing valuable long-term resources into William compared with better A- and S-rank heroes."
+    ]
+  },
+  {
+    id: "hero-angelina",
+    name: "Angelina",
+    tier: "B-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-angelina2.webp",
+    priority: "Starter hero in Last Z Wiki beginner guide.",
+    summary: "Source-backed Angelina profile using beginner-guide advice and Last Z Wiki faction placement.",
+    skillBullets: [
+      "Last Z Wiki places Angelina under Alba, mapping to Wings of Dawn.",
+      "The beginner guide describes Angelina as a basic starter hero used to clear early zombie and tutorial stages.",
+      "The same guide explicitly recommends avoiding heavy long-term investment in Angelina once stronger heroes are available."
+    ]
+  },
+  {
+    id: "hero-natalie",
+    name: "Natalie",
+    tier: "B-Type",
+    faction: "Wings of Dawn",
+    image: "https://lastzwiki.com/img-heroe-natalia2%20(1).webp",
+    sourceAlias: "Natalia / Nathalie",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Natalie profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki lists Natalia under Alba, mapping Natalie to Wings of Dawn.",
+      "LastZ.GG lists Nathalie in the situational / early-game hero group.",
+      "No detailed skill breakdown was exposed for Natalie/Nathalie in the currently accessible source pages."
+    ]
+  },
+  {
+    id: "hero-giselle",
+    name: "Giselle",
+    tier: "B-Type",
+    faction: "Blood Rose",
+    image: "https://lastzwiki.com/img-heroe-giselle2.webp",
+    priority: "Situational / early-game priority on LastZ.GG.",
+    summary: "Source-backed Giselle profile using Last Z Wiki faction placement and LastZ.GG grouping.",
+    skillBullets: [
+      "Last Z Wiki places Giselle under Rosa, mapping to Blood Rose.",
+      "LastZ.GG groups Giselle with situational / early-game heroes.",
+      "Accessible public pages did not expose a detailed skill breakdown for Giselle."
+    ]
+  }
 ]
+
+function buildHeroSections(hero){
+  const aliasNote = hero.sourceAlias
+    ? `Source naming note: this hero is exposed as ${hero.sourceAlias} on one of the public source pages used here.`
+    : null
+
+  return [
+    {
+      title: "Source-backed profile",
+      items: [
+        `Type in current guide set: ${hero.tier}.`,
+        `Faction from public sources: ${hero.faction}.`,
+        hero.role ? `Role callout from LastZ.GG: ${hero.role}.` : "Role callout: not explicitly exposed on the fetched public hero pages.",
+        hero.priority,
+        aliasNote
+      ].filter(Boolean)
+    },
+    {
+      title: "Skill notes from sources",
+      items: hero.skillBullets
+    },
+    {
+      title: "How to use this page",
+      items: [
+        "These notes are intentionally limited to what was actually exposed on the fetched public pages from Last Z Wiki, LastZ.GG and Fandom.",
+        "When a hero had no public detailed skill page available, the guide keeps faction, image and priority data source-backed instead of inventing hidden skill values.",
+        "Recheck the live hero screen in-game before making expensive fragment or book decisions."
+      ]
+    }
+  ]
+}
 
 const HERO_GUIDES = HERO_ENTRIES.map((hero, index) => ({
   id: hero.id,
@@ -40,29 +407,17 @@ const HERO_GUIDES = HERO_ENTRIES.map((hero, index) => ({
   title: hero.name,
   tier: hero.tier,
   faction: hero.faction,
+  image: hero.image,
   heroOrder: index,
-  summary: `${hero.name} profile and planning notes for Hero Initiative and long-term roster growth.`,
-  sections: [
-    {
-      title: "Profile snapshot",
-      items: [
-        `Type in source list: ${hero.tier}.`,
-        `Faction: ${hero.faction}.`,
-        "Use this page to track your own star level, skill levels and equipment breakpoint progression.",
-        "Prioritize upgrades for active march formations before investing in secondary heroes."
-      ]
-    },
-    {
-      title: "Power model checklist",
-      items: [
-        "Hero power is affected by level, stars, skills and equipment.",
-        "General bonuses also come from vehicle modification, structures and technologies.",
-        "Use Hero Initiative windows to batch upgrades for stronger chest efficiency."
-      ]
-    }
-  ],
+  useGuideSections: true,
+  summary: hero.summary,
+  sections: buildHeroSections(hero),
   related: ["resource-heroes", "type-hero", "day-hero"],
-  sources: ["Fandom: Heroes", "LastZ.GG: Hero guides"]
+  sources: [
+    "Last Z Wiki: heroes.html",
+    "LastZ.GG: basics/heroes",
+    "Fandom: Category:Heroes and hero raw category pages"
+  ]
 }))
 
 const ENEMY_GUIDES = [

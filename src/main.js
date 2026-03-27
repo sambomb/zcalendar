@@ -4,19 +4,8 @@ import {initUI} from "./ui.js";
 
 (async()=>{
  try {
-   // Sempre carregar inglês primeiro para garantir que T está preenchido
-   await loadLang("en");
-   
-   // Depois detectar idioma salvo e tentar carregar
-   const savedLang = localStorage.getItem("lang");
-   if(savedLang && savedLang !== "en") {
-     try {
-       await loadLang(savedLang);
-     } catch(err) {
-       console.warn("Erro ao carregar idioma salvo, usando inglês:", err);
-       await loadLang("en");
-     }
-   }
+   const preferredLang = localStorage.getItem("lang") || detectLang() || "en";
+   await loadLang(preferredLang);
    
    buildLangSelect();
    initUI();

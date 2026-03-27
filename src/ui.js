@@ -54,7 +54,98 @@ function guideTitle(guide){
 }
 
 function guideSummary(guide){
+  if(guide.id.startsWith("hero-") && !guide.useGuideSections){
+    return formatTemplate(
+      textOr(T.heroSummaryTemplate, "{name} profile and planning notes for Hero Initiative and long-term roster growth."),
+      { name: guide.title }
+    )
+  }
   return T.guideSummaries?.[guide.id] || guide.summary
+}
+
+function formatTemplate(template, values){
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    String(template)
+  )
+}
+
+function getHeroInitials(name){
+  return String(name)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || "")
+    .join("")
+}
+
+function renderGuidePortrait(guide){
+  if(guide.image){
+    return `<div class="guide-card-portrait-wrap"><img class="guide-card-portrait" src="${withBase(guide.image)}" alt="${escapeHtml(guideTitle(guide))}"></div>`
+  }
+
+  if(!guide.id.startsWith("hero-")) return ""
+
+  const tierClass = guide.tier === "S-Type"
+    ? "hero-tier-s"
+    : guide.tier === "A-Type"
+      ? "hero-tier-a"
+      : "hero-tier-b"
+
+  return `<div class="guide-card-portrait-wrap hero-card-portrait-wrap ${tierClass}"><div class="guide-avatar">${escapeHtml(getHeroInitials(guide.title))}</div></div>`
+}
+
+function getGuideDetailPortrait(guide){
+  if(guide.image){
+    return `<div class="guide-portrait-wrap"><img class="guide-portrait" src="${withBase(guide.image)}" alt="${escapeHtml(guideTitle(guide))}"></div>`
+  }
+
+  if(!guide.id.startsWith("hero-")) return ""
+
+  const tierClass = guide.tier === "S-Type"
+    ? "hero-tier-s"
+    : guide.tier === "A-Type"
+      ? "hero-tier-a"
+      : "hero-tier-b"
+
+  return `
+    <div class="guide-portrait-wrap hero-portrait-wrap ${tierClass}" aria-label="${escapeHtml(guideTitle(guide))}">
+      <div class="guide-avatar hero-avatar-large">${escapeHtml(getHeroInitials(guide.title))}</div>
+    </div>
+  `
+}
+
+function getGuideSections(guide){
+  if(guide.useGuideSections) return guide.sections
+  if(!guide.id.startsWith("hero-")) return guide.sections
+
+  return [
+    {
+      title: textOr(T.heroSectionProfile, "Profile snapshot"),
+      items: [
+        formatTemplate(textOr(T.heroProfileType, "Type in source list: {tier}."), { tier: guide.tier }),
+        formatTemplate(textOr(T.heroProfileFaction, "Faction: {faction}."), { faction: guide.faction }),
+        textOr(T.heroProfileStars, "Use this page to track star level, equipment breakpoints and daily upgrade targets."),
+        textOr(T.heroProfileMainMarch, "Keep your main march heroes ahead of side rosters during Hero Initiative spending windows.")
+      ]
+    },
+    {
+      title: textOr(T.heroSectionPower, "Power model checklist"),
+      items: [
+        textOr(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
+        textOr(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
+        textOr(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
+      ]
+    },
+    {
+      title: textOr(T.heroSectionSkills, "Skill planning"),
+      items: [
+        textOr(T.heroSkillsCore, "Prioritize the core combat skill used in your main lineup before spreading books across backup heroes."),
+        textOr(T.heroSkillsPassive, "Permanent passives and march-impact skills usually give better long-term value than niche utility upgrades."),
+        textOr(T.heroSkillsBooks, "Save books and fragments for Hero Initiative so skill upgrades contribute to both power growth and event score.")
+      ]
+    }
+  ]
 }
 
 function formatGuideLinks(ids){
@@ -84,6 +175,7 @@ function renderGuideCard(guide){
 
   return `
     <a class="guide-card ${heroTierClass}" href="${getGuidePath(guide.id)}">
+      ${renderGuidePortrait(guide)}
       <span class="guide-card-badge">${escapeHtml(guide.badge)}</span>
       ${factionMeta}
       <h3>${escapeHtml(guideTitle(guide))}</h3>
@@ -123,11 +215,13 @@ function buildStaticShell(){
     .map(renderGuideCollection)
     .join("")
 
-  renderPointNotice()
+  const pointsNotice = document.getElementById("pointsNotice")
+  if(pointsNotice) pointsNotice.hidden = true
   renderDonatePanel()
 }
 
 function withBase(path){
+  if(/^https?:\/\//i.test(String(path))) return String(path)
   const normalizedBase = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`
   return `${normalizedBase}${String(path).replace(/^\/+/, "")}`
 }
@@ -138,10 +232,10 @@ function renderDonatePanel(){
 
   donatePanel.innerHTML = `
     <div class="donate-copy">
-      <p class="section-kicker">Support</p>
-      <h2>Support this project</h2>
-      <p>If this guide helps your gameplay, consider supporting maintenance through PayPal.</p>
-      <a class="donate-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer">Donate with PayPal</a>
+      <p class="section-kicker">${escapeHtml(textOr(T.donateKicker, "Support"))}</p>
+      <h2>${escapeHtml(textOr(T.donateTitle, "Support this project"))}</h2>
+      <p>${escapeHtml(textOr(T.donateBodyHome, "If this guide helps your gameplay, consider supporting maintenance through PayPal."))}</p>
+      <a class="donate-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer">${escapeHtml(textOr(T.donateCta, "Donate with PayPal"))}</a>
     </div>
     <a class="donate-qr-link" href="${DONATE_URL}" target="_blank" rel="noopener noreferrer" aria-label="Donate via PayPal QR code">
       <img class="donate-qr" src="${withBase("donate.png")}" alt="PayPal donation QR code">
@@ -214,6 +308,10 @@ function renderTopMenu(){
 }
 
 function renderPointNotice(){
+  const notice = document.getElementById("pointsNotice")
+  if(notice) notice.hidden = true
+  return
+
   const formula = textOr(T.pointFormula, "Base = round(Displayed / 2.17), minimum 1")
   const examples = POINT_EXAMPLES
     .map((example) => {
@@ -382,8 +480,10 @@ function fillCells(){
       year: "numeric"
     })
     const localTimeStr = formatTime(occurrenceLocal, CURRENT_LANG)
+    const iconSrc = getIcon(day,hour)
+    const iconClass = iconSrc === ICONS.white ? "radar-icon white-state" : "radar-icon"
     const shieldHtml = day === 6
-      ? `<img src="/zcalendar/shield.png" class="radar-icon shield-icon" alt="Shield">`
+      ? `<img src="${withBase("shield.png")}" class="radar-icon shield-icon" alt="Shield">`
       : ""
     const dayGuideLink = getGuidePath(DAY_IDS_BY_INDEX[day])
 
@@ -395,7 +495,7 @@ function fillCells(){
           ${localDateStr} ${localTimeStr}
         </div>
         <div class="cell-icons">
-          <img src="${getIcon(day,hour)}" class="radar-icon" alt="Event state icon">
+          <img src="${iconSrc}" class="${iconClass}" alt="Event state icon">
           ${shieldHtml}
         </div>
         <div class="cell-event">
@@ -535,6 +635,8 @@ function renderRoute(){
   }
 
   const guide = GUIDE_MAP[guideId]
+  const guideSections = getGuideSections(guide)
+  const portraitHtml = getGuideDetailPortrait(guide)
   detailSection.hidden = false
   document.getElementById("guideDetail").innerHTML = `
     <div class="guide-detail-head">
@@ -542,11 +644,12 @@ function renderRoute(){
         <p class="section-kicker">${escapeHtml(guide.badge)}</p>
         <h2>${escapeHtml(guideTitle(guide))}</h2>
         <p class="guide-detail-summary">${escapeHtml(guideSummary(guide))}</p>
+        ${portraitHtml}
       </div>
       <a class="guide-back-link" href="#guides">${escapeHtml(textOr(T.guideBack, "Back to guide lists"))}</a>
     </div>
     <div class="guide-section-grid">
-      ${guide.sections.map((section) => `
+      ${guideSections.map((section) => `
         <section class="guide-detail-card">
           <h3>${escapeHtml(section.title)}</h3>
           <ul>
@@ -585,10 +688,16 @@ function applyTranslations(){
   document.getElementById("statResourcesLabel").textContent = textOr(T.statResources, "Support pages")
   document.getElementById("calendarHeading").textContent = textOr(T.calendarHeading, "Apocalypse rotation")
   document.getElementById("calendarIntro").textContent = textOr(T.calendarIntro, "Use the live table to see the current slot, the next slot and the local date for every 4-hour cycle.")
+  const calendarKicker = document.querySelector("#calendar .section-kicker")
+  if(calendarKicker) calendarKicker.textContent = textOr(T.calendarKicker, "Live Rotation")
   document.getElementById("guidesHeading").textContent = textOr(T.guidesHeading, "Guide pages")
   document.getElementById("guidesIntro").textContent = textOr(T.guidesIntro, "Open the pages below for event-type strategy, day planning and system references built from community sources.")
+  const guidesKicker = document.querySelector("#guides .section-kicker")
+  if(guidesKicker) guidesKicker.textContent = textOr(T.guidesKicker, "Guide Hub")
   document.getElementById("sourcesHeading").textContent = textOr(T.sourcesHeading, "Source base")
   document.getElementById("sourcesBody").textContent = textOr(T.sourcesBody, "This guide hub is written as original summaries based on community references from Last Z Wiki, Fandom, LastZData and Sardinha's notes. Reconfirm live values in-game because server rules and seasonal content can change.")
+  const sourcesKicker = document.querySelector("#sources .section-kicker")
+  if(sourcesKicker) sourcesKicker.textContent = textOr(T.sourcesKicker, "Sources")
 
   document.querySelector('[data-filter="all"]').textContent = f.all
   document.querySelector('[data-filter="army"]').textContent = f.army
@@ -597,6 +706,5 @@ function applyTranslations(){
   document.querySelector('[data-filter="vehicle"]').textContent = f.vehicle
   document.querySelector('[data-filter="science"]').textContent = f.science
 
-  renderPointNotice()
   renderRoute()
 }
