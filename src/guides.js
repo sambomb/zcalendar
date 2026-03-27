@@ -19,7 +19,8 @@ const HERO_ENTRIES = [
       "LastZ.GG lists Katrina as the best overall hero and the first investment for most players.",
       "Primary effect highlighted by LastZ.GG: DEF boost plus a troop HP passive.",
       "Last Z Wiki beginner guide notes Katrina is obtained free at Stage 14 and is worth investing in for long-term use."
-    ]
+    ],
+    related: ["resource-heroes", "type-hero", "day-hero", "enemy-boomer", "day-vehicle", "type-vehicle"]
   },
   {
     id: "hero-sophia",
@@ -49,7 +50,8 @@ const HERO_ENTRIES = [
       "Fandom raw category data places Laura under Wings of Dawn.",
       "LastZ.GG calls Laura a core attacker for Wings of Dawn builds.",
       "Primary passive highlighted by LastZ.GG: 20 free radar events per day, plus attack value for Wings-focused progression."
-    ]
+    ],
+    related: ["resource-heroes", "type-hero", "day-hero", "resource-radar", "type-vehicle", "day-vehicle"]
   },
   {
     id: "hero-chinatsu",
@@ -64,7 +66,8 @@ const HERO_ENTRIES = [
       "LastZ.GG lists Chinatsu as a high-priority support hero for Guard of Order.",
       "Key effect called out by LastZ.GG: up to +55% Alliance Duel bonus points when the relevant skill is maxed.",
       "LastZ.GG also notes her passive works from the bench, making her valuable even when not deployed in the march."
-    ]
+    ],
+    related: ["resource-heroes", "type-hero", "day-hero", "day-vehicle", "day-shelter", "day-science", "day-enemy", "day-growth"]
   },
   {
     id: "hero-mia",
@@ -412,7 +415,7 @@ const HERO_GUIDES = HERO_ENTRIES.map((hero, index) => ({
   useGuideSections: true,
   summary: hero.summary,
   sections: buildHeroSections(hero),
-  related: ["resource-heroes", "type-hero", "day-hero"],
+  related: hero.related || ["resource-heroes", "type-hero", "day-hero"],
   sources: [
     "Last Z Wiki: heroes.html",
     "LastZ.GG: basics/heroes",
@@ -446,7 +449,7 @@ const ENEMY_GUIDES = [
         ]
       }
     ],
-    related: ["day-vehicle", "type-vehicle", "enemy-units"],
+    related: ["day-vehicle", "type-vehicle", "enemy-units", "hero-katrina", "hero-chinatsu"],
     sources: ["Fandom: Full Preparedness", "Sardinha Day 1", "LastZ.GG: Alliance Duel guide"]
   },
   {
@@ -591,7 +594,7 @@ export const GUIDE_SETS = {
         {
           title: "Source notes",
           items: [
-            "Workshop progression on Last Z Wiki focuses on Golden Keys, which are separate from Golden Wrenches. Keep those inventories separate.",
+            "Workshop Golden Keys (Golden Wrenches) score +600 base points each on Day 1 — one of the highest per-item scores available.",
             "Key armament unlocks listed by Last Z Wiki are Cheetah at level 20, Hercules at 70, Double Cannons at 105, Snowplow at 130 and Destroyer at 145."
           ]
         }
@@ -1032,7 +1035,7 @@ export const GUIDE_SETS = {
           ]
         }
       ],
-      related: ["day-peace", "day-vehicle"],
+      related: ["day-peace", "day-vehicle", "hero-laura"],
       sources: ["Fandom: Radar", "Sardinha guide: Day 1"]
     },
     {
@@ -1101,23 +1104,23 @@ export const GUIDE_SETS = {
       id: "resource-wrenches",
       group: "resources",
       badge: "Item",
-      title: "Golden Wrenches",
-      summary: "Golden Wrenches are premium Mod Vehicle Boost spend, so they should usually be hoarded for the correct scoring window.",
+      title: "Workshop Golden Keys",
+      summary: "Workshop Golden Keys (also called Golden Wrenches) are premium Mod Vehicle Boost spend and should be hoarded for the correct scoring window.",
       sections: [
         {
           title: "Why they matter",
           items: [
-            "Fandom lists each Golden Wrench at +600 base points during Mod Vehicle Boost.",
-            "That makes wrenches one of the cleanest ways to secure chest progress when you do not want RNG from combat targets.",
-            "Do not confuse Golden Wrenches with Workshop Golden Keys. They serve different systems."
+            "Fandom lists each Workshop Golden Key at +600 base points during Mod Vehicle Boost.",
+            "That makes them one of the cleanest ways to secure chest progress when you do not want RNG from combat targets.",
+            "The item appears as \"Golden Wrenches\" in some community sources and \"Workshop Golden Keys\" in others — both names refer to the same item."
           ]
         },
         {
           title: "How to manage them",
           items: [
-            "Track your stock separately from blueprints and keys.",
-            "Spend only when the day is live unless a server-specific emergency requires otherwise.",
-            "If you are planning for a workshop milestone, calculate wrench usage and key usage independently."
+            "Track your stock separately from Modification Blueprints.",
+            "Spend only when Day 1 (Mod Vehicle Boost) is live unless a server-specific emergency requires otherwise.",
+            "Plan consumption around armament upgrade milestones in the workshop."
           ]
         }
       ],

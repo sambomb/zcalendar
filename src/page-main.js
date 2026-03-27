@@ -75,7 +75,7 @@ function getGuideSections(guide){
   if(guide.useGuideSections) return guide.sections
   if(!guide.id.startsWith("hero-")) return guide.sections
 
-  return [
+  const sections = [
     {
       title: safeText(T.heroSectionProfile, "Profile snapshot"),
       items: [
@@ -84,24 +84,35 @@ function getGuideSections(guide){
         safeText(T.heroProfileStars, "Use this page to track star level, equipment breakpoints and daily upgrade targets."),
         safeText(T.heroProfileMainMarch, "Keep your main march heroes ahead of side rosters during Hero Initiative spending windows.")
       ]
-    },
-    {
-      title: safeText(T.heroSectionPower, "Power model checklist"),
-      items: [
-        safeText(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
-        safeText(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
-        safeText(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
-      ]
-    },
-    {
+    }
+  ]
+
+  if(guide.skillBullets && guide.skillBullets.length > 0){
+    sections.push({
+      title: safeText(T.heroSectionSkills, "Skill planning"),
+      items: guide.skillBullets
+    })
+  } else {
+    sections.push({
       title: safeText(T.heroSectionSkills, "Skill planning"),
       items: [
         safeText(T.heroSkillsCore, "Prioritize the core combat skill used in your main lineup before spreading books across backup heroes."),
         safeText(T.heroSkillsPassive, "Permanent passives and march-impact skills usually give better long-term value than niche utility upgrades."),
         safeText(T.heroSkillsBooks, "Save books and fragments for Hero Initiative so skill upgrades contribute to both power growth and event score.")
       ]
-    }
-  ]
+    })
+  }
+
+  sections.push({
+    title: safeText(T.heroSectionPower, "Power model checklist"),
+    items: [
+      safeText(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
+      safeText(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
+      safeText(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
+    ]
+  })
+
+  return sections
 }
 
 function roundBonusPoints(basePoints, bonusPercent){

@@ -119,7 +119,7 @@ function getGuideSections(guide){
   if(guide.useGuideSections) return guide.sections
   if(!guide.id.startsWith("hero-")) return guide.sections
 
-  return [
+  const sections = [
     {
       title: textOr(T.heroSectionProfile, "Profile snapshot"),
       items: [
@@ -128,24 +128,35 @@ function getGuideSections(guide){
         textOr(T.heroProfileStars, "Use this page to track star level, equipment breakpoints and daily upgrade targets."),
         textOr(T.heroProfileMainMarch, "Keep your main march heroes ahead of side rosters during Hero Initiative spending windows.")
       ]
-    },
-    {
-      title: textOr(T.heroSectionPower, "Power model checklist"),
-      items: [
-        textOr(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
-        textOr(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
-        textOr(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
-      ]
-    },
-    {
+    }
+  ]
+
+  if(guide.skillBullets && guide.skillBullets.length > 0){
+    sections.push({
+      title: textOr(T.heroSectionSkills, "Skill planning"),
+      items: guide.skillBullets
+    })
+  } else {
+    sections.push({
       title: textOr(T.heroSectionSkills, "Skill planning"),
       items: [
         textOr(T.heroSkillsCore, "Prioritize the core combat skill used in your main lineup before spreading books across backup heroes."),
         textOr(T.heroSkillsPassive, "Permanent passives and march-impact skills usually give better long-term value than niche utility upgrades."),
         textOr(T.heroSkillsBooks, "Save books and fragments for Hero Initiative so skill upgrades contribute to both power growth and event score.")
       ]
-    }
-  ]
+    })
+  }
+
+  sections.push({
+    title: textOr(T.heroSectionPower, "Power model checklist"),
+    items: [
+      textOr(T.heroPowerLevel, "Hero strength comes from level, stars, skill levels and exclusive equipment."),
+      textOr(T.heroPowerBonuses, "Vehicle boosts, tech, buildings and lineup synergy also change total march performance."),
+      textOr(T.heroPowerBatch, "Batch upgrades during event windows so one resource push completes multiple objectives.")
+    ]
+  })
+
+  return sections
 }
 
 function formatGuideLinks(ids){
@@ -481,7 +492,7 @@ function fillCells(){
     })
     const localTimeStr = formatTime(occurrenceLocal, CURRENT_LANG)
     const iconSrc = getIcon(day,hour)
-    const iconClass = iconSrc === ICONS.white ? "radar-icon white-state" : "radar-icon"
+    const iconClass = "radar-icon"
     const shieldHtml = day === 6
       ? `<img src="${withBase("shield.png")}" class="radar-icon shield-icon" alt="Shield">`
       : ""
@@ -577,12 +588,18 @@ function getIcon(day,hour){
 function hookFilters(){
   document.querySelectorAll("#eventFilters button").forEach(btn=>{
     btn.onclick = ()=>{
-      currentFilter = btn.dataset.filter
-
-      document.querySelectorAll("#eventFilters button")
-        .forEach(b=>b.classList.remove("selected"))
-
-      btn.classList.add("selected")
+      if(btn.dataset.filter !== "all" && currentFilter === btn.dataset.filter){
+        currentFilter = "all"
+        document.querySelectorAll("#eventFilters button")
+          .forEach(b=>b.classList.remove("selected"))
+        const allBtn = document.querySelector('[data-filter="all"]')
+        if(allBtn) allBtn.classList.add("selected")
+      } else {
+        currentFilter = btn.dataset.filter
+        document.querySelectorAll("#eventFilters button")
+          .forEach(b=>b.classList.remove("selected"))
+        btn.classList.add("selected")
+      }
       applyFilter()
     }
   })
@@ -686,16 +703,28 @@ function applyTranslations(){
   document.getElementById("statEventsLabel").textContent = textOr(T.statEvents, "Event types")
   document.getElementById("statDaysLabel").textContent = textOr(T.statDays, "Day pages")
   document.getElementById("statResourcesLabel").textContent = textOr(T.statResources, "Support pages")
-  document.getElementById("calendarHeading").textContent = textOr(T.calendarHeading, "Apocalypse rotation")
+  document.getElementById("calendarHeading").textContent = textOr(T.calendarHeading, "Alliance Duel schedule")
   document.getElementById("calendarIntro").textContent = textOr(T.calendarIntro, "Use the live table to see the current slot, the next slot and the local date for every 4-hour cycle.")
   const calendarKicker = document.querySelector("#calendar .section-kicker")
-  if(calendarKicker) calendarKicker.textContent = textOr(T.calendarKicker, "Live Rotation")
+  if(calendarKicker) calendarKicker.textContent = textOr(T.calendarKicker, "Live Schedule")
   document.getElementById("guidesHeading").textContent = textOr(T.guidesHeading, "Guide pages")
   document.getElementById("guidesIntro").textContent = textOr(T.guidesIntro, "Open the pages below for event-type strategy, day planning and system references built from community sources.")
   const guidesKicker = document.querySelector("#guides .section-kicker")
   if(guidesKicker) guidesKicker.textContent = textOr(T.guidesKicker, "Guide Hub")
   document.getElementById("sourcesHeading").textContent = textOr(T.sourcesHeading, "Source base")
   document.getElementById("sourcesBody").textContent = textOr(T.sourcesBody, "This guide hub is written as original summaries based on community references from Last Z Wiki, Fandom, LastZData and Sardinha's notes. Reconfirm live values in-game because server rules and seasonal content can change.")
+  const sourceLinksEl = document.getElementById("sourceLinks")
+  if(sourceLinksEl){
+    const links = [
+      { label: "Last Z Wiki", url: "https://lastzwiki.com" },
+      { label: "Last Z Fandom", url: "https://last-z-survival.fandom.com" },
+      { label: "LastZ.GG", url: "https://lastz.gg" },
+      { label: "LastZData", url: "https://lastzdata.com" }
+    ]
+    sourceLinksEl.innerHTML = links
+      .map((l) => `<a class="source-link-chip" href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`)
+      .join("")
+  }
   const sourcesKicker = document.querySelector("#sources .section-kicker")
   if(sourcesKicker) sourcesKicker.textContent = textOr(T.sourcesKicker, "Sources")
 

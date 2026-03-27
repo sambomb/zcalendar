@@ -407,13 +407,6 @@ th{
 	filter:drop-shadow(0 0 8px rgba(0,0,0,.45));
 }
 
-.radar-icon.white-state{
-	background:radial-gradient(circle at 35% 35%, rgba(216,71,59,.95), rgba(125,32,34,.95));
-	padding:3px;
-	border:1px solid rgba(255,205,200,.55);
-	box-shadow:0 0 0 1px rgba(8,10,14,.7);
-}
-
 .cell-event{
 	font-size:.88rem;
 	font-weight:700;
@@ -930,4 +923,29 @@ th{
 	th,td{padding:10px 8px}
 
 	.cell{min-width:124px}
+}
+
+.source-links{
+	display:flex;
+	flex-wrap:wrap;
+	gap:10px;
+	margin-top:18px;
+}
+
+.source-link-chip{
+	border:1px solid var(--line);
+	border-radius:999px;
+	padding:8px 16px;
+	background:var(--panel-strong);
+	color:var(--ink);
+	font:inherit;
+	font-size:.9rem;
+	text-decoration:none;
+	transition:.18s ease;
+}
+
+.source-link-chip:hover{
+	border-color:rgba(216,71,59,.5);
+	color:var(--accent);
+	transform:translateY(-1px);
 }
