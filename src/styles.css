@@ -331,6 +331,11 @@ a{color:inherit;text-decoration:none}
 	cursor:pointer;
 }
 
+#langSelect,
+#langSelect option{
+	font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Segoe UI Symbol",Bahnschrift,"Trebuchet MS","Segoe UI",sans-serif;
+}
+
 .stats-strip{
 	display:grid;
 	grid-template-columns:repeat(3, minmax(0,1fr));

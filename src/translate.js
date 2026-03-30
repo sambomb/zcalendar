@@ -69,28 +69,28 @@ function cleanStoredLang() {
 }
 
 export const LANGS = [
-  {code:"en",label:"🇺🇸 English"},
-  {code:"pt-br",label:"🇧🇷 Português (BR)"},
-  {code:"pt-pt",label:"🇵🇹 Português (PT)"},
-  {code:"es",label:"🇪🇸 Español"},
-  {code:"fr",label:"🇫🇷 Français"},
-  {code:"de",label:"🇩🇪 Deutsch"},
-  {code:"it",label:"🇮🇹 Italiano"},
-  {code:"ru",label:"🇷🇺 Русский"},
-  {code:"zh",label:"🇨🇳 中文"},
-  {code:"ja",label:"🇯🇵 日本語"},
-  {code:"ko",label:"🇰🇷 한국어"},
-  {code:"hi",label:"🇮🇳 हिन्दी"},
-  {code:"bn",label:"🇧🇩 বাংলা"},
-  {code:"mr",label:"🇮🇳 मराठी"},
-  {code:"ar",label:"🇸🇦 العربية"},
-  {code:"ur",label:"🇵🇰 اردو"},
-  {code:"id",label:"🇮🇩 Bahasa Indonesia"},
-  {code:"tr",label:"🇹🇷 Türkçe"},
-  {code:"pl",label:"🇵🇱 Polski"},
-  {code:"sw",label:"🇰🇪 Kiswahili"},
-  {code:"auto",label:"🌐 Outros (Auto Detectar)"}
-]
+  { code: "en", flag: "🇺🇸", name: "English" },
+  { code: "pt-br", flag: "🇧🇷", name: "Português (BR)" },
+  { code: "pt-pt", flag: "🇵🇹", name: "Português (PT)" },
+  { code: "es", flag: "🇪🇸", name: "Español" },
+  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "de", flag: "🇩🇪", name: "Deutsch" },
+  { code: "it", flag: "🇮🇹", name: "Italiano" },
+  { code: "ru", flag: "🇷🇺", name: "Русский" },
+  { code: "zh", flag: "🇨🇳", name: "中文" },
+  { code: "ja", flag: "🇯🇵", name: "日本語" },
+  { code: "ko", flag: "🇰🇷", name: "한국어" },
+  { code: "hi", flag: "🇮🇳", name: "हिन्दी" },
+  { code: "bn", flag: "🇧🇩", name: "বাংলা" },
+  { code: "mr", flag: "🇮🇳", name: "मराठी" },
+  { code: "ar", flag: "🇸🇦", name: "العربية" },
+  { code: "ur", flag: "🇵🇰", name: "اردو" },
+  { code: "id", flag: "🇮🇩", name: "Bahasa Indonesia" },
+  { code: "tr", flag: "🇹🇷", name: "Türkçe" },
+  { code: "pl", flag: "🇵🇱", name: "Polski" },
+  { code: "sw", flag: "🇰🇪", name: "Kiswahili" },
+  { code: "auto", flag: "🌐", name: "Outros (Auto Detectar)" }
+].map((lang) => ({ ...lang, label: `${lang.flag} ${lang.name}` }))
 
 export async function loadLang(lang){
   cleanStoredLang()
