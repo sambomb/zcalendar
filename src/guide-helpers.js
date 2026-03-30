@@ -69,8 +69,15 @@ const GUIDE_MENTION_LINKS = [
   { term: "Hero Fragments", id: "resource-hero-fragments" },
   { term: "Refugees", id: "resource-refugees" },
   { term: "Construction Speedups", id: "resource-construction-speedups" },
+  { term: "Construction Speedup", id: "resource-construction-speedups" },
   { term: "Research Speedups", id: "resource-research-speedups" },
+  { term: "Research Speedup", id: "resource-research-speedups" },
   { term: "Training Speedups", id: "resource-training-speedups" },
+  { term: "Training Speedup", id: "resource-training-speedups" },
+  { term: "Technology", id: "resource-technology" },
+  { term: "Training", id: "resource-training" },
+  { term: "Constructions", id: "resource-constructions" },
+  { term: "Construction", id: "resource-constructions" },
   { term: "Fuel", id: "resource-fuel" },
   { term: "Spending Fuel", id: "resource-fuel" },
   { term: "Expending Fuel", id: "resource-fuel" },
@@ -78,13 +85,20 @@ const GUIDE_MENTION_LINKS = [
   { term: "Intercity Trade", id: "resource-intercity-trades" },
   { term: "Bounty", id: "resource-bounty" },
   { term: "Katrina", id: "hero-katrina" },
+  { term: "Sophia", id: "hero-sophia" },
+  { term: "Amelia", id: "hero-amelia" },
   { term: "Laura", id: "hero-laura" },
   { term: "Mia", id: "hero-mia" },
   { term: "Boomer", id: "enemy-boomer" },
   { term: "Boomers", id: "enemy-boomer" },
   { term: "Zombie", id: "enemy-zombie" },
   { term: "Zombies", id: "enemy-zombie" },
-  { term: "Radar", id: "resource-radar" }
+  { term: "Radar", id: "resource-radar" },
+  { term: "Library", id: "resource-structure-library" },
+  { term: "Bookstore", id: "resource-structure-library" },
+  { term: "Village", id: "resource-structure-village" },
+  { term: "Villa", id: "resource-structure-village" },
+  { term: "Restaurant", id: "resource-structure-restaurant" }
 ]
 
 export function linkifyText(text, guideMap, getGuidePath){
@@ -131,7 +145,18 @@ export async function localizeGuideContent(guide, lang){
   const sections = await Promise.all((guide.sections || []).map(async (section) => {
     const title = await translateText(section.title, lang)
     const items = await Promise.all((section.items || []).map((item) => translateText(item, lang)))
-    return { ...section, title, items }
+
+    let table = null
+    if(section.table && Array.isArray(section.table.headers) && Array.isArray(section.table.rows)){
+      const headers = await Promise.all(section.table.headers.map((header) => translateText(header, lang)))
+      const rows = await Promise.all(section.table.rows.map(async (row) => {
+        const rowCells = Array.isArray(row) ? row : [row]
+        return Promise.all(rowCells.map((cell) => translateText(cell, lang)))
+      }))
+      table = { headers, rows }
+    }
+
+    return { ...section, title, items, table }
   }))
 
   return {

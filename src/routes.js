@@ -89,6 +89,8 @@ export const GUIDE_ROUTES = [
   { id: "resource-research-speedups", path: "items/research-speedups.html", group: "items" },
   { id: "resource-training-speedups", path: "items/training-speedups.html", group: "items" },
   { id: "resource-fuel", path: "items/fuel.html", group: "items" },
+  { id: "resource-technology", path: "items/technology.html", group: "items" },
+  { id: "resource-training", path: "items/training.html", group: "items" },
 
   { id: "resource-heroes", path: "heroes/index.html", group: "heroes" },
 
@@ -120,6 +122,7 @@ export const GUIDE_ROUTES = [
 
   { id: "resource-general-tips", path: "systems/general-tips.html", group: "systems" },
   { id: "resource-buildings", path: "systems/buildings.html", group: "systems" },
+  { id: "resource-constructions", path: "systems/constructions.html", group: "systems" },
   { id: "resource-structure-headquarters", path: "systems/structures/headquarters.html", group: "systems" },
   { id: "resource-structure-lumber-mill", path: "systems/structures/lumber-mill.html", group: "systems" },
   { id: "resource-structure-farm", path: "systems/structures/farm.html", group: "systems" },

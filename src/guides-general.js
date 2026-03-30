@@ -543,8 +543,17 @@ function buildHeroSections(hero){
       "Skill 2 (Passive): core stat boost that improves this hero's baseline march performance.",
       "Skill 3 (Passive): secondary passive focused on lineup efficiency such as damage, toughness or utility.",
       "Skill 4 (Advanced): late skill layer that amplifies the hero identity and is best upgraded after core breakpoints.",
-      "For exact skill names, scaling and unlock details, validate on Fandom Heroes pages: https://lastzshooterrun.fandom.com/wiki/Heroes"
+      "Source: https://lastzshooterrun.fandom.com/wiki/Heroes"
     ]
+
+  const skillTableRows = skillBreakdown.map((line, index) => {
+    const splitIndex = String(line).indexOf(":")
+    if(splitIndex < 0) return [`Skill ${index + 1}`, String(line)]
+    return [
+      String(line).slice(0, splitIndex).trim(),
+      String(line).slice(splitIndex + 1).trim()
+    ]
+  })
 
   return [
     {
@@ -566,7 +575,10 @@ function buildHeroSections(hero){
     },
     {
       title: "Skill breakdown (Fandom reference)",
-      items: skillBreakdown
+      table: {
+        headers: ["Skill", "Effect by level / note"],
+        rows: skillTableRows
+      }
     },
     {
       title: "Upgrade checklist",
@@ -1058,14 +1070,17 @@ export const GUIDE_SETS = {
           items: [
             "Finish long timers that were intentionally parked near completion.",
             "Use alliance help before spending speedups.",
-            "Push buildings that unlock the next research, troop or economic bottleneck."
+            "Push buildings that unlock the next research, troop or economic bottleneck.",
+            "Use Sophia construction skill windows (free build time, construction speed and cost reduction) before applying Construction Speedups.",
+            "If your strategy includes Katrina's extra fuel generation, redirect part of that operational gain into safer construction timing and resource routing."
           ]
         },
         {
           title: "Do not forget",
           items: [
             "Resource boxes become more valuable as HQ climbs, so only open what the push really needs.",
-            "Builder efficiency matters more than vanity upgrades on this day."
+            "Builder efficiency matters more than vanity upgrades on this day.",
+            "Village (Villa) construction can be staged as a secondary completion target when HQ requirements are already covered."
           ]
         }
       ],
@@ -1264,7 +1279,8 @@ export const GUIDE_SETS = {
           items: [
             "Headquarters path comes first because it gates most systems, research and higher-tier training options.",
             "Keep builder usage tight: prioritize buildings that unlock the next meaningful upgrade chain.",
-            "Avoid spending speedups on low-impact side upgrades during core progression windows."
+            "Avoid spending speedups on low-impact side upgrades during core progression windows.",
+            "Apply Sophia construction reductions first, then consume Construction Speedups only on the remaining high-value timer."
           ]
         },
         {
@@ -1272,12 +1288,41 @@ export const GUIDE_SETS = {
           items: [
             "Pre-stage long construction timers so final completions land on Shelter Upgrade day.",
             "Align building goals with lab and troop bottlenecks to avoid idle days between event types.",
-            "Review resource and prerequisite costs before reset so construction decisions are fast and deliberate."
+            "Review resource and prerequisite costs before reset so construction decisions are fast and deliberate.",
+            "Use Village (Villa) upgrades to support population and queue depth when they unblock your next HQ chain."
           ]
         }
       ],
       related: ["type-shelter", "day-shelter", "type-science"],
       sources: ["Last Z Wiki: Buildings", "Last Z Wiki: Beginner tips"]
+    },
+    {
+      id: "resource-constructions",
+      group: "resources",
+      badge: "System",
+      title: "Constructions General Info",
+      summary: "Construction performance is a combo of hero reduction skills, speedups, queue timing and prerequisite routing.",
+      sections: [
+        {
+          title: "Main interaction model",
+          items: [
+            "Sophia is the primary construction optimizer with free construction minutes, speed bonus and building cost reduction by progression.",
+            "Construction Speedups should be used after Sophia and alliance help modifiers are already applied.",
+            "Village (Villa) upgrades are valuable when they directly unlock the next Headquarters and production chain requirements.",
+            "Katrina does not directly reduce construction timers, but her extra fuel economy can support safer resource routing and event-day preparation."
+          ]
+        },
+        {
+          title: "Execution checklist",
+          items: [
+            "Stage long timers before Shelter Upgrade day and finish them inside your scoring window.",
+            "Batch similar prerequisites together so builder idle time stays near zero.",
+            "Use this page together with Technology and Training pages to avoid one system racing ahead while others stall progression."
+          ]
+        }
+      ],
+      related: ["resource-buildings", "resource-construction-speedups", "hero-sophia", "hero-katrina", "day-shelter"],
+      sources: ["Community planning notes", "Hero skill references"]
     },
     {
       id: "resource-radar",
@@ -1655,6 +1700,32 @@ export const GUIDE_SETS = {
       sources: ["Community planning notes"]
     },
     {
+      id: "resource-technology",
+      group: "resources",
+      badge: "Item",
+      title: "Technology",
+      summary: "Technology progression is strongest when research hero bonuses, speedups and the Library (Bookstore) are synchronized.",
+      sections: [
+        {
+          title: "Core interactions",
+          items: [
+            "Amelia provides research acceleration and should be prioritized before heavy badge and speedup bursts.",
+            "Research Speedups are best spent after hero and alliance modifiers are active.",
+            "Library (Bookstore) progression supports long-term tech efficiency and should follow your chosen research chain."
+          ]
+        },
+        {
+          title: "Practical sequencing",
+          items: [
+            "Use Technology upgrades together with construction planning so lab prerequisites are never blocked by missing buildings.",
+            "Batch spending on Age of Science day for cleaner score conversion and stronger progression pacing."
+          ]
+        }
+      ],
+      related: ["type-science", "day-science", "hero-amelia", "resource-research-speedups", "resource-structure-library", "resource-constructions"],
+      sources: ["Community planning notes", "Hero skill references"]
+    },
+    {
       id: "resource-training-speedups",
       group: "resources",
       badge: "Item",
@@ -1671,6 +1742,32 @@ export const GUIDE_SETS = {
       ],
       related: ["day-growth", "type-army", "day-enemy"],
       sources: ["Community planning notes"]
+    },
+    {
+      id: "resource-training",
+      group: "resources",
+      badge: "Item",
+      title: "Training",
+      summary: "Training efficiency depends on troop-specific heroes, support heroes, building levels and timed Training Speedups.",
+      sections: [
+        {
+          title: "Hero and structure interactions",
+          items: [
+            "Each troop line can benefit from specialized heroes, while generic support heroes still add value through global buffs.",
+            "Shooter, biker and raider buildings should track your main formation composition.",
+            "Restaurant and military support structures help sustain long training cycles and operation tempo."
+          ]
+        },
+        {
+          title: "Speedup and queue discipline",
+          items: [
+            "Use Training Speedups on high-value queues during Army Expansion or pre-Enemy Buster preparation.",
+            "Avoid spending all speedups on low-tier filler if you have upcoming tier unlock breakpoints."
+          ]
+        }
+      ],
+      related: ["type-army", "day-growth", "day-enemy", "resource-training-speedups", "resource-structure-restaurant", "resource-structure-shooting-range", "resource-structure-bikers-camp", "resource-structure-raiders-camp"],
+      sources: ["Community planning notes", "Structure references"]
     },
     {
       id: "resource-intercity-trades",

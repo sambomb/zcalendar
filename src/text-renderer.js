@@ -175,15 +175,53 @@ export class TextRenderer {
     const cardClass = [fontClass, this.isRTL ? "rtl-text" : ""].filter(Boolean).join(" ")
     
     const title = this.renderHeading(section.title, 3, { useLinks })
-    const items = this.renderList(section.items || [], { useLinks })
+    const hasTable = section.table && Array.isArray(section.table.headers) && Array.isArray(section.table.rows)
+    const body = hasTable
+      ? this.renderGenericTable(section.table, { useLinks })
+      : this.renderList(section.items || [], { useLinks })
     
     const cardAttr = cardClass ? `class="guide-detail-card ${cardClass}"` : 'class="guide-detail-card"'
     
     return `
       <section ${direction} ${cardAttr}>
         ${title}
-        ${items}
+        ${body}
       </section>
+    `
+  }
+
+  renderGenericTable(table, options = {}) {
+    const { useLinks = true } = options
+    const headers = table.headers || []
+    const rows = table.rows || []
+
+    const headHtml = headers
+      .map((header) => `<th>${this.renderText(header)}</th>`)
+      .join("")
+
+    const rowsHtml = rows
+      .map((row) => {
+        const cells = (Array.isArray(row) ? row : [row])
+          .map((cell) => {
+            const rendered = useLinks ? this.renderTextWithLinks(String(cell)) : this.renderText(String(cell))
+            return `<td>${rendered}</td>`
+          })
+          .join("")
+        return `<tr>${cells}</tr>`
+      })
+      .join("")
+
+    return `
+      <div class="table-wrap">
+        <table class="score-table">
+          <thead>
+            <tr>${headHtml}</tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </div>
     `
   }
 

@@ -319,14 +319,25 @@ async function renderGuidePage(guideId){
   const shouldSanitizeSources = guide.id !== "resource-sources"
   const guideSections = getGuideSections(guide)
     .filter((section) => !shouldSanitizeSources || !shouldHideSourceSection(section.title))
-    .map((section) => ({
-      ...section,
-      title: shouldSanitizeSources ? stripSourceAttribution(section.title) : section.title,
-      items: (section.items || [])
+    .map((section) => {
+      const sanitizedItems = (section.items || [])
         .map((item) => shouldSanitizeSources ? stripSourceAttribution(item) : item)
         .filter((item) => item && (!shouldSanitizeSources || !shouldHideSourceItem(item)))
-    }))
-    .filter((section) => section.items.length > 0)
+
+      const hasTable = section.table
+        && Array.isArray(section.table.headers)
+        && Array.isArray(section.table.rows)
+        && section.table.headers.length > 0
+        && section.table.rows.length > 0
+
+      return {
+        ...section,
+        title: shouldSanitizeSources ? stripSourceAttribution(section.title) : section.title,
+        items: sanitizedItems,
+        table: hasTable ? section.table : null
+      }
+    })
+    .filter((section) => (section.items && section.items.length > 0) || section.table)
 
   const relatedSection = renderManager
     ? renderManager.guideCard.renderRelatedSection(guide.related)
