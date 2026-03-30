@@ -461,6 +461,35 @@ th{
 	transition:.18s ease;
 }
 
+.slot-time-cell{
+	min-width:86px;
+	font-weight:700;
+	color:#eaf0ff;
+}
+
+.slot-time-cell-bonus{
+	display:grid;
+	justify-items:center;
+	align-content:start;
+	gap:6px;
+}
+
+.slot-time-text{
+	line-height:1.2;
+}
+
+.slot-radar-icon{
+	width:24px;
+	height:24px;
+}
+
+.slot-radar-bonus{
+	font-size:.86rem;
+	font-weight:800;
+	color:#9bc2ff;
+	letter-spacing:.02em;
+}
+
 .cell-link{
 	display:block;
 	color:inherit;

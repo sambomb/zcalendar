@@ -151,8 +151,7 @@ export class DayColumnRenderer {
    * @returns {string} HTML da linha
    */
   renderDayRow(hour, dayGuideIds, daysToRender = [0, 1, 2, 3, 4, 5, 6]) {
-    const timeStr = this.formatApocSlotHour(hour)
-    let row = `<tr><td>${escapeHtml(timeStr)}</td>`
+    let row = `<tr>${this.renderSlotTimeCell(hour)}`
 
     for (const dayIndex of daysToRender) {
       row += this.renderDayCell(dayIndex, hour, dayGuideIds[dayIndex])
@@ -214,6 +213,25 @@ export class DayColumnRenderer {
    */
   withBase(path) {
     return withBasePath(path, this.baseUrl)
+  }
+
+  renderSlotTimeCell(hour){
+    const timeStr = this.formatApocSlotHour(hour)
+    const hasRadarBonus = hour === 0 || hour === 8 || hour === 16
+
+    if(!hasRadarBonus){
+      return `<td class="slot-time-cell"><span class="slot-time-text">${escapeHtml(timeStr)}</span></td>`
+    }
+
+    const whiteRadarIcon = this.withBase("white.png")
+
+    return `
+      <td class="slot-time-cell slot-time-cell-bonus">
+        <span class="slot-time-text">${escapeHtml(timeStr)}</span>
+        <img src="${escapeHtml(whiteRadarIcon)}" class="radar-icon radar-icon-blue-halo slot-radar-icon" alt="Radar refresh icon">
+        <span class="slot-radar-bonus">+8</span>
+      </td>
+    `
   }
 
   formatApocSlotHour(hour){
