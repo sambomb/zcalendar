@@ -71,13 +71,19 @@ const GUIDE_MENTION_LINKS = [
   { term: "Construction Speedups", id: "resource-construction-speedups" },
   { term: "Research Speedups", id: "resource-research-speedups" },
   { term: "Training Speedups", id: "resource-training-speedups" },
+  { term: "Fuel", id: "resource-fuel" },
+  { term: "Spending Fuel", id: "resource-fuel" },
+  { term: "Expending Fuel", id: "resource-fuel" },
   { term: "Intercity Trades", id: "resource-intercity-trades" },
   { term: "Intercity Trade", id: "resource-intercity-trades" },
   { term: "Bounty", id: "resource-bounty" },
+  { term: "Katrina", id: "hero-katrina" },
   { term: "Laura", id: "hero-laura" },
   { term: "Mia", id: "hero-mia" },
   { term: "Boomer", id: "enemy-boomer" },
+  { term: "Boomers", id: "enemy-boomer" },
   { term: "Zombie", id: "enemy-zombie" },
+  { term: "Zombies", id: "enemy-zombie" },
   { term: "Radar", id: "resource-radar" }
 ]
 
