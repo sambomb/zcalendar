@@ -574,9 +574,10 @@ function updateNext(){
   const local = getLocal()
   const localStr = formatTime(local, CURRENT_LANG)
   const apocStr = formatClockParts(currentHour, currentMin)
+  const nextRadarText = textOr(T.nextRadarInfo, "Next Radar: They happen at 00, 08 and 16 Apocalypse Time")
 
   document.getElementById("timeInfo").innerText =
-    `${T.localLabel}: ${localStr} | ${T.apocLabel}: ${apocStr} | ${T.nextLabel}: ${String(diffHours).padStart(2,"0")}:${String(diffMinutes).padStart(2,"0")}`
+    `${T.localLabel}: ${localStr} | ${T.apocLabel}: ${apocStr} | ${T.nextLabel}: ${String(diffHours).padStart(2,"0")}:${String(diffMinutes).padStart(2,"0")} | ${nextRadarText}`
 }
 
 function updateAlert(){

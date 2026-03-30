@@ -144,7 +144,8 @@ function updateDayPageStatus(guideId){
     const local = getLocal()
     const localStr = formatTime(local, renderManager.text.currentLang)
     const apocStr = formatClockParts(currentHour, currentMinute)
-    timeInfo.textContent = `${safeText(T.localLabel, "Local Time")}: ${localStr} | ${safeText(T.apocLabel, "Apocalypse Time")}: ${apocStr}`
+    const nextRadarText = safeText(T.nextRadarInfo, "Next Radar: They happen at 00, 08 and 16 Apocalypse Time")
+    timeInfo.textContent = `${safeText(T.localLabel, "Local Time")}: ${localStr} | ${safeText(T.apocLabel, "Apocalypse Time")}: ${apocStr} | ${nextRadarText}`
   }
 
   renderManager.calendar.highlightCurrentDayAndHour(currentDay, currentHour)

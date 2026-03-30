@@ -140,6 +140,7 @@ export default {
   "localLabel": "Hora Local",
   "apocLabel": "Hora do Apocalipse",
   "nextLabel": "Próximo evento",
+    "nextRadarInfo": "Próximo Radar: acontece às 00, 08 e 16 no Horário do Apocalipse",
   "dayLabel": "Dia",
   "timeFormat24": "24H",
   "timeFormat12": "12H"

@@ -42,6 +42,7 @@ export default {
   "localLabel": "Hora local",
   "apocLabel": "Hora do Apocalipse",
   "nextLabel": "Próximo evento",
+  "nextRadarInfo": "Próximo Radar: acontece às 00, 08 e 16 no Horário do Apocalipse",
   "dayLabel": "Dia",
   "appTitle": "Hub do Guia ZCalendar",
   "heroEyebrow": "Último quadro de planejamento Z",
