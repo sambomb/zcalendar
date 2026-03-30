@@ -1,6 +1,16 @@
 import { escapeHtml } from "./guide-helpers.js"
 import { TextRenderer } from "./text-renderer.js"
 
+function formatFallbackMenuTitle(id) {
+  return String(id || "")
+    .replace(/^(resource|type|day|hero|enemy)-/i, "")
+    .replace(/\b(structure|structures)-/i, "")
+    .split("-")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ")
+}
+
 /**
  * Renderizador de menu de navegação
  * Responsável por renderizar menu principal e submenus
@@ -34,7 +44,9 @@ export class MenuRenderer {
    */
   renderMenuItem(item, activeGuideId = "") {
     const guide = this.guideMap[item.id]
-    const title = guide ? this.textRenderer.getText(`guideTitles.${item.id}`) || guide.title : item.id
+    const title = guide
+      ? this.textRenderer.getText(`guideTitles.${item.id}`) || guide.title
+      : this.textRenderer.getText(`guideTitles.${item.id}`) || formatFallbackMenuTitle(item.id)
     const activeClass = item.id === activeGuideId ? "active" : ""
     const href = this.getGuidePath(item.id)
 
