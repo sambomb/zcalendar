@@ -547,13 +547,29 @@ function buildHeroSections(hero){
       "Source: https://lastzshooterrun.fandom.com/wiki/Heroes"
     ]
 
-  const skillTableRows = skillBreakdown.map((line, index) => {
+  const skillTableRows = skillBreakdown.flatMap((line, index) => {
     const splitIndex = String(line).indexOf(":")
-    if(splitIndex < 0) return [`Skill ${index + 1}`, String(line)]
-    return [
-      String(line).slice(0, splitIndex).trim(),
-      String(line).slice(splitIndex + 1).trim()
-    ]
+    if(splitIndex < 0) return [[`Skill ${index + 1}`, "-", String(line)]]
+
+    const skillName = String(line).slice(0, splitIndex).trim() || `Skill ${index + 1}`
+    const details = String(line).slice(splitIndex + 1).trim()
+    const levelChunks = details
+      .split(",")
+      .map((chunk) => chunk.trim())
+      .filter(Boolean)
+
+    const rowsByLevel = levelChunks
+      .map((chunk) => {
+        const levelMatch = chunk.match(/^(L\d+)\s*(.*)$/i)
+        if(!levelMatch) return null
+        const level = levelMatch[1].toUpperCase()
+        const effect = (levelMatch[2] || "").replace(/^[:\-]\s*/, "").trim() || "-"
+        return [skillName, level, effect]
+      })
+      .filter(Boolean)
+
+    if(rowsByLevel.length > 0) return rowsByLevel
+    return [[skillName, "-", details || "-"]]
   })
 
   return [
@@ -577,7 +593,7 @@ function buildHeroSections(hero){
     {
       title: "Skill breakdown (Fandom reference)",
       table: {
-        headers: ["Skill", "Effect by level / note"],
+        headers: ["Skill", "Level", "Effect / note"],
         rows: skillTableRows
       }
     },
