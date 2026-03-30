@@ -372,6 +372,159 @@ const HERO_ENTRIES = [
   }
 ]
 
+const HERO_SKILL_REFERENCE = {
+  "hero-katrina": [
+    "Explosive Bullet: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "All-out Assault: L1 +150, L2 duration +1s, L3 +150, L4 supportive troop amount +2, L5 +300 damage factor.",
+    "Exploration Genius: L1 free fuel +100/day, L2 idle EXP +5%, L3 idle EXP +5%, L4 fuel restoration +10%, L5 idle EXP +10%.",
+    "Potential Unleashed: self ATK +10%, DEF +10%, troop capacity +5%."
+  ],
+  "hero-sophia": [
+    "Doom Hunter: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Apocalypse Fury: L1 +150, L2 supportive troop amount +2, L3 +150, L4 supportive troop amount +3, L5 +300 damage factor.",
+    "Princess's Gift: L1 free construction +15 min, L2 construction speed +10%, L3 free construction +60 min, L4 building resource cost -5%, L5 building resource cost -10%.",
+    "Potential Unleashed: self ATK +10%, DEF +10%, troop capacity +5%."
+  ],
+  "hero-selena": [
+    "Torn Wound: L1 +90, L2 +90, L3 +90, L4 +120, L5 +120 damage factor.",
+    "Wild Summon: L1 +150, L2 damage range +30%, L3 +150, L4 ground slam count +2, L5 +300 damage factor.",
+    "Power of Nature: Assaulter ATK scaling from +5% up to +15% across levels.",
+    "Potential Unleashed: all Assaulter units damage +10% even if Selena is not deployed."
+  ],
+  "hero-oliveira": [
+    "Fatal Blow: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Blade Storm: L1 +150, L2 duration +1s, L3 +150, L4 adds bleeding effect, L5 +300 damage factor.",
+    "Gifted Girl: Assaulter training speed and assaulter stat bonuses across levels; L5 applies ATK/DEF boost to all unit types.",
+    "Potential Unleashed: each Blood Rose hero deployed adds +5% ATK/DEF; with 5 heroes troop capacity gains an extra +10%."
+  ],
+  "hero-vivian": [
+    "Magic Cards: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Card Trick: L1 +90, L2 +90, L3 damage range +30%, L4 +200, L5 duration +1s.",
+    "Born of Fire: fuel cost reduction and combat bonuses; higher levels broaden effects to full formation.",
+    "Field Specialist: allows multiple troops to attack the same creep."
+  ],
+  "hero-miranda": [
+    "Penetrating Bullets: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Rapid Shooting: L1 +90, L2 +90, L3 higher stun chance, L4 +200, L5 stun duration +1s.",
+    "Defense Expert: DEF scaling from +50 up to +300 across levels.",
+    "Faction Defense: Blood Rose hero DEF +10%."
+  ],
+  "hero-ava": [
+    "Chemical Reaction: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Perilous Potion: L1 +90, L2 +90, L3 poison chance, L4 +220, L5 stronger poison effect.",
+    "Attack Expert: ATK scaling from +50 up to +500 across levels.",
+    "Faction Attack: Blood Rose hero ATK +10%."
+  ],
+  "hero-giselle": [
+    "Alloy Crowbar: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Crowbar Impact: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Gathering Master (Wood): gathering speed bonuses across levels, peaking with broader gathering gain.",
+    "Faction Attack: Blood Rose hero ATK +5%."
+  ],
+  "hero-audrey": [
+    "Fist Fury: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Thai Boxing Impact: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Production Master (Electricity): electricity output bonuses across levels.",
+    "Faction Defense: Blood Rose hero DEF +5%."
+  ],
+  "hero-evelyn": [
+    "Heavy Armor Soldier: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Fire Suppression: L1 +150, L2 rockets +3, L3 +150, L4 rockets +5, L5 +300 damage factor.",
+    "Queen's Orders: training speed and rider stat bonuses; L5 applies ATK/DEF boost to all unit types.",
+    "Potential Unleashed: each Guard of Order hero adds +5% ATK/DEF; with 5 heroes troop capacity gains an extra +10%."
+  ],
+  "hero-mia": [
+    "Electro Amplification: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Lightning Ink: L1 +150, L2 extra bounces, L3 +150, L4 more bounces, L5 +300 damage factor.",
+    "Modification Expert: free blueprints and upgrade EXP bonuses across levels; L5 modified vehicle skill damage +200%.",
+    "Potential Unleashed: listed in hero page progression with final formation-oriented scaling."
+  ],
+  "hero-chinatsu": [
+    "Iaido Slash: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Spiral Sword Energy: L1 +150, L2 damage range +30%, L3 +150, L4 energy whirlwind moves forward, L5 +300 damage factor.",
+    "Samurai Spirit: Alliance Duel points bonus scaling from +2% to +7%.",
+    "Potential Unleashed: self ATK +10%, DEF +10%, troop capacity +5%."
+  ],
+  "hero-elizabeth": [
+    "Bad Omen: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Scatter Shot: L1 +90, L2 +90, L3 higher immobilization chance, L4 +220, L5 immobilization duration +1s.",
+    "Defense Expert: DEF scaling from +50 up to +300 across levels.",
+    "Faction Defense: Guard of Order hero DEF +10%."
+  ],
+  "hero-maria": [
+    "Normal Attack Boost: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Doom Judgement: L1 +90, L2 +90, L3 knockback chance, L4 +220, L5 stronger knockback effect.",
+    "Training Expert: unit training speed and training resource efficiency bonuses across levels.",
+    "Faction Commander: troop capacity +5%."
+  ],
+  "hero-leah": [
+    "Crack Shot: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Arrow of Silence: L1 +90, L2 +90, L3 duration +1s, L4 +220, L5 burning chance added.",
+    "Attack Expert: ATK scaling from +50 up to +300 across levels.",
+    "Faction Attack: Guard of Order hero ATK +10%."
+  ],
+  "hero-william": [
+    "Normal Attack Skill: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Explosive Grenade: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Production Master (Food): food/resource output bonuses across levels.",
+    "Faction Defense: Guard of Order hero DEF +5%."
+  ],
+  "hero-athena": [
+    "Bullet Upgrade: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Pistol Shooting: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Gathering Master (Electricity): electricity gathering speed bonuses across levels.",
+    "Faction Attack: Guard of Order hero ATK +5%."
+  ],
+  "hero-scarlett": [
+    "Shadow Assault: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "EM Pulse: L1 +150, L2 splits pulse into 2 with reduced damage, L3 +150, L4 extra pulse count, L5 +300 damage factor.",
+    "Power of Dominance: training speed and shooter stat bonuses; L5 applies ATK/DEF boost to all unit types.",
+    "Potential Unleashed: each Wings of Dawn hero adds +5% ATK/DEF; with 5 heroes troop capacity gains an extra +10%."
+  ],
+  "hero-laura": [
+    "Hunter's Instinct: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Arrow Shower: L1 +150, L2 damage range +30%, L3 +150, L4 adds burning effect, L5 +300 damage factor.",
+    "Hunter's Gift: free mission count and radar EXP bonuses; higher levels add extra exploration chest rewards.",
+    "Potential Unleashed: self ATK +10%, DEF +10%, troop capacity +5%."
+  ],
+  "hero-amelia": [
+    "Assassin Focus: L1 +90, L2 +90, L3 +90, L4 +120, L5 +210 damage factor.",
+    "Precision Blast: L1 +150, L2 adds burning effect, L3 +150, L4 doubles marks with reduced damage, L5 +300 damage factor.",
+    "Scientist: free research time and research speed/resource bonuses across levels.",
+    "Potential Unleashed: self ATK +10%, DEF +10%, troop capacity +5%."
+  ],
+  "hero-fiona": [
+    "Flame Enhancement: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Flame Jet: L1 +100, L2 +100, L3 damage range +30%, L4 +200, L5 duration +2s.",
+    "Attack Expert: ATK scaling from +50 up to +300 across levels.",
+    "Faction Attack: Wings of Dawn hero ATK +10%."
+  ],
+  "hero-isabella": [
+    "Enhanced Bullets: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Dual Gun Strike: L1 +90, L2 +90, L3 higher immobilization chance, L4 +200, L5 immobilization duration +1s.",
+    "Defense Expert: DEF scaling from +50 up to +300 across levels.",
+    "Faction Defense: Wings of Dawn hero DEF +10%."
+  ],
+  "hero-christina": [
+    "Judgement Knight: L1 +45, L2 +45, L3 +45, L4 +60, L5 +105 damage factor.",
+    "Flame Storm: L1 +90, L2 +90, L3 burning chance, L4 +220, L5 stronger burning effect.",
+    "Siege Expert: fuel cost and demolition-time bonuses across levels.",
+    "Siege Specialist: Siege Expert effects apply to the entire formation regardless of deployment."
+  ],
+  "hero-angelina": [
+    "Toxin Injection: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Serum Grenade: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Production Master (Wood): wood/resource output bonuses across levels.",
+    "Faction Defense: Wings of Dawn hero DEF +5%."
+  ],
+  "hero-natalie": [
+    "Enhanced Crossbow: L1 +30, L2 +30, L3 +30, L4 +40, L5 +70 damage factor.",
+    "Crossbow Shooting: L1 +60, L2 +60, L3 +60, L4 +80, L5 +140 damage factor.",
+    "Gathering Master (Food): food gathering speed bonuses across levels, ending with broader gathering gain.",
+    "Faction Attack: Wings of Dawn hero ATK +5%."
+  ]
+}
+
 function buildHeroSections(hero){
   const aliasNote = hero.sourceAlias
     ? `Naming note: this hero can also appear as ${hero.sourceAlias} in some community pages.`
@@ -381,13 +534,17 @@ function buildHeroSections(hero){
     ? hero.role.split("/")[1]?.trim()?.toLowerCase() || "combat"
     : "combat"
 
-  const skillBreakdown = [
-    `Skill 1 (Active): main ${roleHint} cast used at the start of fights or key combat turns.`,
-    "Skill 2 (Passive): core stat boost that improves this hero's baseline march performance.",
-    "Skill 3 (Passive): secondary passive focused on lineup efficiency such as damage, toughness or utility.",
-    "Skill 4 (Advanced): late skill layer that amplifies the hero identity and is best upgraded after core breakpoints.",
-    "For exact skill names, scaling and unlock details, validate on Fandom Heroes pages: https://lastzshooterrun.fandom.com/wiki/Heroes"
-  ]
+  const referencedSkills = HERO_SKILL_REFERENCE[hero.id] || []
+
+  const skillBreakdown = referencedSkills.length > 0
+    ? referencedSkills
+    : [
+      `Skill 1 (Active): main ${roleHint} cast used at the start of fights or key combat turns.`,
+      "Skill 2 (Passive): core stat boost that improves this hero's baseline march performance.",
+      "Skill 3 (Passive): secondary passive focused on lineup efficiency such as damage, toughness or utility.",
+      "Skill 4 (Advanced): late skill layer that amplifies the hero identity and is best upgraded after core breakpoints.",
+      "For exact skill names, scaling and unlock details, validate on Fandom Heroes pages: https://lastzshooterrun.fandom.com/wiki/Heroes"
+    ]
 
   return [
     {
@@ -408,7 +565,7 @@ function buildHeroSections(hero){
       )
     },
     {
-      title: "Skill breakdown (slot by slot)",
+      title: "Skill breakdown (Fandom reference)",
       items: skillBreakdown
     },
     {
