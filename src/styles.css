@@ -189,7 +189,16 @@ a{color:inherit;text-decoration:none}
 	gap:10px;
 }
 
-.menu-shell{width:100%}
+.controls{
+	position:relative;
+	z-index:120;
+}
+
+.menu-shell{
+	width:100%;
+	position:relative;
+	z-index:140;
+}
 
 .guide-page-top{
 	position:relative;
@@ -205,12 +214,12 @@ a{color:inherit;text-decoration:none}
 	gap:10px;
 	justify-content:flex-end;
 	position:relative;
-	z-index:81;
+	z-index:141;
 }
 
 .menu-group{
 	position:relative;
-	z-index:82;
+	z-index:142;
 	padding-bottom:8px;
 }
 
@@ -227,7 +236,7 @@ a{color:inherit;text-decoration:none}
 	background:var(--panel-strong);
 	box-shadow:0 20px 36px rgba(23,32,51,.14);
 	display:none;
-	z-index:200;
+	z-index:143;
 }
 
 .menu-group.open .submenu,
