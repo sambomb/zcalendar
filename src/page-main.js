@@ -217,12 +217,20 @@ function renderMenu(activeGuideId){
 
   const renderGroupItems = (group) => {
     if(group.id !== "heroes"){
-      return group.items.map((item) => {
+      const defaultItems = group.items.map((item) => {
         const guide = GUIDE_MAP[item.id]
         const title = guide ? guideTitle(guide) : item.id
         const activeClass = item.id === activeGuideId ? "active" : ""
         return `<li><a class="submenu-link ${activeClass}" href="${getGuidePath(item.id)}">${escapeHtml(title)}</a></li>`
       }).join("")
+
+      if(group.id === "systems"){
+        const guidesLabel = safeText(T.navGuides, "Guide Hub")
+        const guidesItem = `<li><a class="submenu-link" href="${getGuidesHubPath()}">${escapeHtml(guidesLabel)}</a></li>`
+        return `${guidesItem}${defaultItems}`
+      }
+
+      return defaultItems
     }
 
     const introItem = group.items.find((item) => item.id === "resource-heroes")
@@ -263,9 +271,6 @@ function renderMenu(activeGuideId){
       return `
         <li class="menu-group single">
           <a class="menu-link" href="${getHomePath()}">${escapeHtml(safeText(T.navCalendar, "Calendar"))}</a>
-        </li>
-        <li class="menu-group single">
-          <a class="menu-link" href="${getGuidesHubPath()}">${escapeHtml(safeText(T.navGuides, "Guides"))}</a>
         </li>
       `
     }

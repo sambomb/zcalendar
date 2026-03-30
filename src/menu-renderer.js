@@ -49,9 +49,17 @@ export class MenuRenderer {
    */
   renderGroupItems(group, activeGuideId = "") {
     if (group.id !== "heroes") {
-      return group.items
+      const defaultItems = group.items
         .map((item) => this.renderMenuItem(item, activeGuideId))
         .join("")
+
+      if(group.id === "systems"){
+        const guidesLabel = this.translations.navGuides || "Guide Hub"
+        const guidesItem = `<li><a class="submenu-link" href="${escapeHtml(this.getGuidesHubPath())}">${escapeHtml(guidesLabel)}</a></li>`
+        return `${guidesItem}${defaultItems}`
+      }
+
+      return defaultItems
     }
 
     // Renderizar introdução de heróis
@@ -105,13 +113,9 @@ export class MenuRenderer {
   renderMenuGroup(group, activeGuideId = "") {
     if (group.id === "calendar") {
       const calendarLabel = this.translations.navCalendar || "Calendar"
-      const guidesLabel = this.translations.navGuides || "Guides"
       return `
         <li class="menu-group single">
           <a class="menu-link" href="${escapeHtml(this.getHomePath())}">${escapeHtml(calendarLabel)}</a>
-        </li>
-        <li class="menu-group single">
-          <a class="menu-link" href="${escapeHtml(this.getGuidesHubPath())}">${escapeHtml(guidesLabel)}</a>
         </li>
       `
     }
