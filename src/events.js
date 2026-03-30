@@ -1,8 +1,17 @@
 
+const BASE_URL = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.BASE_URL)
+ ? import.meta.env.BASE_URL
+ : "/"
+
+function withBase(path){
+	const normalizedBase = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`
+	return `${normalizedBase}${String(path).replace(/^\/+/, "")}`
+}
+
 export const ICONS={
- red:"/zcalendar/red.png",
- gold:"/zcalendar/gold.png",
- white:"/zcalendar/white.png"
+ red: withBase("red.png"),
+ gold: withBase("gold.png"),
+ white: withBase("white.png")
 };
 
 export const DAY_KEYS=["peace","vehicle","shelter","science","hero","growth","enemy"];

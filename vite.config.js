@@ -38,7 +38,7 @@ const GUIDE_INPUTS = {
 }
 
 export default defineConfig({
-  base: '/zcalendar/',
+  base: '/',
   build: {
     rollupOptions: {
       input: {

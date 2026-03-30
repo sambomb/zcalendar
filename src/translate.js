@@ -71,6 +71,7 @@ function deepMerge(base, overrides){
 }
 
 export let T = {
+  appTitle: "LastZ Help",
   time: "Time",
   current: "Current",
   alert: "Alert",
@@ -159,6 +160,7 @@ export async function loadLang(lang){
       }
       localStorage.setItem(cacheKey, JSON.stringify(T));
     }
+    T.appTitle = "LastZ Help"
     return;
   }
 
@@ -181,6 +183,7 @@ export async function loadLang(lang){
   const base = baseMod.default || baseMod
   
   T = deepMerge(base, langData)
+  T.appTitle = "LastZ Help"
   
   CURRENT_LANG = validLang
   localStorage.setItem("lang", validLang)
