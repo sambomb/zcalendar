@@ -82,13 +82,11 @@ guideTitles:{
 "resource-heroes":"Heroes",
 "resource-wrenches":"Workshop Golden Keys",
 "resource-blueprints":"Modification Blueprints",
-"resource-point-rules":"Point Rules and Base Conversion",
 "resource-general-tips":"General Tips",
 "resource-buildings":"Buildings Overview",
 "enemy-units":"Enemy Units and Target Priority"
 },
 guideSummaries:{
-"resource-point-rules":"Convert displayed values to original base points with the configured divisor and integer rounding."
 },
 time:"Time",
 current:"Current Event",

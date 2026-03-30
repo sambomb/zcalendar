@@ -105,7 +105,6 @@ export const GUIDE_ROUTES = [
   { id: "hero-natalie", path: "heroes/wings-of-dawn/natalie.html", group: "heroes" },
   { id: "hero-giselle", path: "heroes/blood-rose/giselle.html", group: "heroes" },
 
-  { id: "resource-point-rules", path: "systems/point-rules.html", group: "systems" },
   { id: "resource-general-tips", path: "systems/general-tips.html", group: "systems" },
   { id: "resource-buildings", path: "systems/buildings.html", group: "systems" },
   { id: "resource-sources", path: "systems/sources.html", group: "systems" },

@@ -634,7 +634,7 @@ export const GUIDE_SETS = {
           ]
         }
       ],
-      related: ["day-shelter", "resource-point-rules"],
+      related: ["day-shelter", "type-army"],
       sources: ["Fandom: Full Preparedness", "Last Z Wiki: Beginner tips"]
     },
     {
@@ -736,7 +736,7 @@ export const GUIDE_SETS = {
           ]
         }
       ],
-      related: ["day-enemy", "resource-point-rules"],
+      related: ["day-enemy", "resource-shield"],
       sources: ["Fandom: Full Preparedness", "Last Z Wiki: combat tips"]
     }
   ],
@@ -829,7 +829,7 @@ export const GUIDE_SETS = {
           ]
         }
       ],
-      related: ["type-shelter", "resource-point-rules"],
+      related: ["type-shelter", "resource-buildings"],
       sources: ["Sardinha index: Day 2", "Fandom: Full Preparedness"]
     },
     {
@@ -1167,12 +1167,13 @@ export const GUIDE_SETS = {
           title: "Practical use",
           items: [
             "Use blueprints to smooth chest breakpoints when you do not want to overspend wrenches.",
+            "Mia is one of the best gathering heroes to sustain blueprint farming before Day 1 spend windows.",
             "Bundle blueprint spending with Boomer pushes and saved radar claims to keep the whole day coherent.",
             "Keep a small reserve if your account still unlocks regular vehicle breakpoints outside event days."
           ]
         }
       ],
-      related: ["type-vehicle", "day-vehicle"],
+      related: ["type-vehicle", "day-vehicle", "hero-mia"],
       sources: ["Fandom: Full Preparedness", "Sardinha guide: Day 1"]
     },
     {
@@ -1226,41 +1227,8 @@ export const GUIDE_SETS = {
           ]
         }
       ],
-      related: ["day-growth", "resource-point-rules"],
+      related: ["day-growth", "resource-interstate-truck"],
       sources: ["Community planning page", "Verify in-game on your server"]
-    },
-    {
-      id: "resource-point-rules",
-      group: "resources",
-      badge: "Reference",
-      title: "Point Rules and Base Conversion",
-      summary: "Displayed values are boosted values, not base values. Use the configured divisor to recover base points with integer rounding.",
-      sections: [
-        {
-          title: "Working formula",
-          items: withBase(POINT_EXAMPLES[0]) && [
-            "Base points = round(displayed points / 2.17), with a minimum result of 1.",
-            "This follows the requested conversion where 217 displayed becomes 100 base.",
-            "This is the safest way to compare your results with wiki tables that list base values."
-          ]
-        },
-        {
-          title: "Examples from the screenshot",
-          items: POINT_EXAMPLES.map((example) => {
-            const resolved = withBase(example)
-            return `${resolved.label}: ${resolved.shown} shown ≈ ${resolved.base} base`
-          })
-        },
-        {
-          title: "How to use it",
-          items: [
-            "If your shown values look higher than a wiki table, check whether technology, hero skills or temporary buffs are already being added.",
-            "Always plan chest targets from base tables first, then add your bonus layer to estimate how many actions you really need."
-          ]
-        }
-      ],
-      related: ["type-vehicle", "type-army"],
-      sources: ["User-provided screenshot note", "Event tables from Fandom"]
     },
     {
       id: "enemy-units",

@@ -38,9 +38,15 @@ export const SCORE_TABLE = {
       { action: "Start a team-up and kill a Lv.5-6 Boomer", basePoints: 1797 },
       { action: "Start a team-up and kill a Lv.7-8 Boomer", basePoints: 1889 },
       { action: "Start a team-up and kill a Lv.9-10 Boomer", basePoints: 1982 },
-      { action: "Kill 1 Lv.1-3 zombie", basePoints: 80 },
-      { action: "Kill 1 Lv.4-6 zombie", basePoints: 160 },
-      { action: "Kill 1 Lv.7-9 zombie", basePoints: 241 }
+      { action: "Kill 1 Zombie Lv.1-3", basePoints: 840 },
+      { action: "Kill 1 Zombie Lv.4-6", basePoints: 860 },
+      { action: "Kill 1 Zombie Lv.7-9", basePoints: 880 },
+      { action: "Kill 1 Zombie Lv.10-12", basePoints: 900 },
+      { action: "Kill 1 Zombie Lv.13-15", basePoints: 920 },
+      { action: "Kill 1 Zombie Lv.16-18", basePoints: 940 },
+      { action: "Kill 1 Zombie Lv.19-21", basePoints: 960 },
+      { action: "Kill 1 Zombie Lv.22-24", basePoints: 980 },
+      { action: "Kill 1 Zombie Lv.25-30", basePoints: 1000 }
     ]
   },
   "day-shelter": {

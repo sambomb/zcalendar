@@ -3,7 +3,9 @@
 Esta pasta contém páginas de referência transversal.
 
 ## Arquivos
-- `point-rules.html`
+- `buildings.html`
+- `general-tips.html`
+- `sources.html`
 
 Observação: as páginas de heróis foram movidas para a pasta `heroes/`.
 

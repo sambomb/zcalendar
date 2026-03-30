@@ -51,6 +51,7 @@ const GUIDE_MENTION_LINKS = [
   { term: "Laura", id: "hero-laura" },
   { term: "Mia", id: "hero-mia" },
   { term: "Boomer", id: "enemy-boomer" },
+  { term: "Zombie", id: "enemy-zombie" },
   { term: "Radar", id: "resource-radar" }
 ]
 
