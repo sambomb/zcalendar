@@ -88,7 +88,8 @@ export class DayColumnRenderer {
 
     const eventType = this.getEventType(ev)
     const iconSrc = this.getIcon(dayIndex, hour)
-    const iconClass = "radar-icon"
+    const hasBlueHalo = hour === 0 || hour === 8 || hour === 16
+    const iconClass = hasBlueHalo ? "radar-icon radar-icon-blue-halo" : "radar-icon"
     const shieldHtml =
       dayIndex === 6
         ? `<img src="${this.withBase("shield.png")}" class="radar-icon shield-icon" alt="Shield">`

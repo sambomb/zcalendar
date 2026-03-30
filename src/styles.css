@@ -492,6 +492,14 @@ th{
 	filter:drop-shadow(0 0 8px rgba(0,0,0,.45));
 }
 
+.radar-icon-blue-halo{
+	box-shadow:
+		0 0 0 3px rgba(56, 128, 255, .18),
+		0 0 14px rgba(56, 128, 255, .55),
+		0 0 26px rgba(56, 128, 255, .28);
+	background:radial-gradient(circle, rgba(129, 191, 255, .2) 0%, rgba(56, 128, 255, .08) 55%, rgba(56, 128, 255, 0) 72%);
+}
+
 .cell-event{
 	font-size:.88rem;
 	font-weight:700;
