@@ -11,6 +11,24 @@ function formatFallbackMenuTitle(id) {
     .join(" ")
 }
 
+const DAY_MENU_INDEX = {
+  peace: 0,
+  vehicle: 1,
+  shelter: 2,
+  science: 3,
+  hero: 4,
+  growth: 5,
+  enemy: 6
+}
+
+const TYPE_EVENT_BY_SUFFIX = {
+  vehicle: "Mod Vehicle Boost",
+  shelter: "Shelter Upgrade",
+  science: "Age of Science",
+  hero: "Hero Initiative",
+  army: "Army Expansion"
+}
+
 /**
  * Renderizador de menu de navegação
  * Responsável por renderizar menu principal e submenus
@@ -44,13 +62,38 @@ export class MenuRenderer {
    */
   renderMenuItem(item, activeGuideId = "") {
     const guide = this.guideMap[item.id]
-    const title = guide
-      ? this.textRenderer.getText(`guideTitles.${item.id}`) || guide.title
-      : this.textRenderer.getText(`guideTitles.${item.id}`) || formatFallbackMenuTitle(item.id)
+    const title = this.getMenuItemTitle(item, guide)
     const activeClass = item.id === activeGuideId ? "active" : ""
     const href = this.getGuidePath(item.id)
 
     return `<li><a class="submenu-link ${activeClass}" href="${escapeHtml(href)}">${escapeHtml(title)}</a></li>`
+  }
+
+  getMenuItemTitle(item, guide) {
+    const translatedTitle = this.textRenderer.getText(`guideTitles.${item.id}`)
+
+    if(item.id.startsWith("day-")){
+      const suffix = item.id.replace(/^day-/, "")
+      const dayIndex = DAY_MENU_INDEX[suffix]
+      const dayNames = Array.isArray(this.translations.days) ? this.translations.days : []
+      const dayName = dayNames[dayIndex] || formatFallbackMenuTitle(suffix)
+      const dayTitle = this.translations.dayTitles?.[suffix] || translatedTitle || guide?.title || formatFallbackMenuTitle(item.id)
+
+      if(suffix === "peace") return `${dayName}: ${dayTitle}`
+
+      const dayLabel = this.translations.dayLabel || "Day"
+      return `${dayName}: ${dayLabel} ${dayIndex} - ${dayTitle}`
+    }
+
+    if(item.id.startsWith("type-")){
+      const suffix = item.id.replace(/^type-/, "")
+      const eventKey = TYPE_EVENT_BY_SUFFIX[suffix]
+      if(eventKey){
+        return this.translations.events?.[eventKey] || translatedTitle || guide?.title || formatFallbackMenuTitle(item.id)
+      }
+    }
+
+    return translatedTitle || guide?.title || formatFallbackMenuTitle(item.id)
   }
 
   /**
@@ -132,7 +175,7 @@ export class MenuRenderer {
       `
     }
 
-    const groupTitle = this.translations[group.titleKey] || group.id
+    const groupTitle = this.translations[group.titleKey] || group.label || formatFallbackMenuTitle(group.id)
     const groupItems = this.renderGroupItems(group, activeGuideId)
 
     return `
