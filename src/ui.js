@@ -5,6 +5,7 @@ import { GUIDE_MAP } from "./guides.js"
 import { DAY_IDS_BY_INDEX, MENU_GROUPS, HERO_FACTION_MENU, getGuidePath, getHomePath, getGuidesHubPath } from "./routes.js"
 import { displayedToBasePoints, POINT_EXAMPLES } from "./points.js"
 import { createRenderManager } from "./render-manager.js"
+import { initMobileCalendar, refreshMobileCalendarLabels, syncMobileCalendarVisibility } from "./mobile.js"
 import {
   textOr,
   escapeHtml,
@@ -90,6 +91,7 @@ export function initUI(){
   hookFilters()
   hookMenu()
   showAutoTranslationNotice()
+  initMobileCalendar(T.days || [])
   updateAll()
 
   setInterval(updateAll,1000)
@@ -382,6 +384,8 @@ function formatClockParts(hour, minute){
 
 function updateAll(){
   fillCells()
+  syncMobileCalendarVisibility()
+  applyFilter()
   updateCurrent()
   updateAlert()
   highlightNow()
@@ -790,5 +794,7 @@ function applyTranslations(){
   document.querySelector('[data-filter="shelter"]').textContent = f.shelter
   document.querySelector('[data-filter="vehicle"]').textContent = f.vehicle
   document.querySelector('[data-filter="science"]').textContent = f.science
+
+  refreshMobileCalendarLabels(T.days || [])
 
 }
