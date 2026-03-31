@@ -1,12 +1,25 @@
 {
   "name": "zcalendar",
   "version": "1.0.0",
+  "description": "LastZ Help - Interactive calendar and guide for Last Z mobile game",
+  "author": "sambomb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sambomb/zcalendar"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "preview": "vite preview",
+    "build": "vite build",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/"
   },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0"
   },
   "dependencies": {
     "flag-icons": "^7.5.0"
