@@ -712,12 +712,6 @@ th{
 	gap:3px;
 }
 
-.slot-time-cell-bonus .radar-icon-blue-halo{
-	box-shadow:
-		0 0 0 2px rgba(56, 128, 255, .15),
-		0 0 7px rgba(56, 128, 255, .45);
-}
-
 .slot-time-text{
 	line-height:1.2;
 }
