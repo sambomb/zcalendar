@@ -1354,8 +1354,8 @@ th{
 
 	.hero-top-row{
 		width:100%;
-		align-items:flex-start;
-		flex-direction:column;
+		align-items:center;
+		flex-wrap:wrap;
 	}
 
 	.hero-top-row .controls{
@@ -1363,7 +1363,8 @@ th{
 		grid-template-columns:minmax(78px,auto) minmax(0,1fr);
 		align-items:center;
 		gap:10px;
-		width:100%;
+		width:min(100%, 360px);
+		margin-left:auto;
 	}
 
 	.hero-top-row .controls button{
