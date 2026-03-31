@@ -687,16 +687,8 @@ th{
 	align-items:center;
 	justify-content:flex-start;
 	gap:3px;
-	background:inherit;
-}
-
-.slot-time-cell-bonus .slot-time-text,
-.slot-time-cell-bonus .slot-radar-icon,
-.slot-time-cell-bonus .slot-radar-bonus{
-	background:transparent;
-	border:0;
-	box-shadow:none;
-	outline:0;
+	background:rgba(17,24,36,.98);
+	overflow:hidden;
 }
 
 .slot-time-text{
