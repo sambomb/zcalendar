@@ -601,10 +601,16 @@ function updateNext(){
   const local = getLocal()
   const localStr = formatTime(local, CURRENT_LANG)
   const apocStr = formatClockParts(currentHour, currentMin)
+  const nextEventText = `${T.nextLabel}: ${String(diffHours).padStart(2,"0")}:${String(diffMinutes).padStart(2,"0")}`
   const nextRadarText = `Next Radar: ${String(radarCountdown.hours).padStart(2,"0")}:${String(radarCountdown.minutes).padStart(2,"0")}`
+  const timeInfo = document.getElementById("timeInfo")
 
-  document.getElementById("timeInfo").innerText =
-    `${T.localLabel}: ${localStr} | ${T.apocLabel}: ${apocStr} | ${T.nextLabel}: ${String(diffHours).padStart(2,"0")}:${String(diffMinutes).padStart(2,"0")} | ${nextRadarText}`
+  if(timeInfo){
+    timeInfo.innerHTML = [
+      `${escapeHtml(T.localLabel)}: ${escapeHtml(localStr)} | ${escapeHtml(T.apocLabel)}: ${escapeHtml(apocStr)}`,
+      `${escapeHtml(nextEventText)} | ${escapeHtml(nextRadarText)}`
+    ].map((line) => `<span class="time-info-line">${line}</span>`).join("")
+  }
 }
 
 function updateAlert(){

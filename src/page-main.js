@@ -167,7 +167,10 @@ function updateDayPageStatus(guideId){
     const apocStr = formatClockParts(currentHour, currentMinute)
     const radarCountdown = getNextRadarCountdown(currentHour, currentMinute)
     const nextRadarText = `Next Radar: ${String(radarCountdown.hours).padStart(2, "0")}:${String(radarCountdown.minutes).padStart(2, "0")}`
-    timeInfo.textContent = `${safeText(T.localLabel, "Local Time")}: ${localStr} | ${safeText(T.apocLabel, "Apocalypse Time")}: ${apocStr} | ${nextRadarText}`
+    timeInfo.innerHTML = [
+      `${escapeHtml(safeText(T.localLabel, "Local Time"))}: ${escapeHtml(localStr)} | ${escapeHtml(safeText(T.apocLabel, "Apocalypse Time"))}: ${escapeHtml(apocStr)}`,
+      `${escapeHtml(nextRadarText)}`
+    ].map((line) => `<span class="time-info-line">${line}</span>`).join("")
   }
 
   renderManager.calendar.highlightCurrentDayAndHour(currentDay, currentHour)
